@@ -8,5 +8,9 @@ The plugin includes a network (over WiFi) and protocol (read code sent from the 
 ## Unity
 Version LTS 2021.3.1f1
 
+### Packages
+- OpenXR Plugin 1.4.2 - from package manager
+- MRTK (Mixed Reality ToolKit) Foundation 2.7.3 - imported as custom package/assets
+
 ## TODO
 Add informations and screenshots/schemas (about the classes, methods, snippets of code for quick implementation and demo).

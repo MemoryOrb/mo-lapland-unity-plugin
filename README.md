@@ -5,6 +5,8 @@ Unity plugin and demo for the memory orb made at the [University of Lapland](htt
 
 The plugin includes a network (over WiFi) and protocol (read code sent from the microcontroller) management, an interactive prefabs of the memory orb and a sample demo.
 
+## Unity
+Version LTS 2021.3.1f1
 
 ## TODO
 Add informations and screenshots/schemas (about the classes, methods, snippets of code for quick implementation and demo).

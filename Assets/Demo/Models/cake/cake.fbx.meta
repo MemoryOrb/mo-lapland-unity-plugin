@@ -3,7 +3,22 @@ guid: e659c27c2f3748d4c85d87a932c1ce96
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CakeBottom
+    second: {fileID: 2100000, guid: b5697365c99b0fd4baae7b1a186282d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CakeInside
+    second: {fileID: 2100000, guid: 7b54e7efdd517524c8d6de0a0b0bac8d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CakeTop
+    second: {fileID: 2100000, guid: 62305a9b343e72b4db5a5db73437ac39, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

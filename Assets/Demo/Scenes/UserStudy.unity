@@ -717,7 +717,7 @@ GameObject:
   - component: {fileID: 450242566}
   - component: {fileID: 450242565}
   m_Layer: 0
-  m_Name: CakeRotating
+  m_Name: Rotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1147,7 +1147,7 @@ GameObject:
   - component: {fileID: 653147870}
   - component: {fileID: 653147869}
   m_Layer: 0
-  m_Name: CakeTranslating
+  m_Name: Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3439,7 +3439,7 @@ GameObject:
   - component: {fileID: 1617078996}
   - component: {fileID: 1617078995}
   m_Layer: 0
-  m_Name: CakeManipulating
+  m_Name: Manipulate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4016,8 +4016,8 @@ MonoBehaviour:
   - {fileID: 1895409708}
   - {fileID: 1617078993}
   targetCake: {fileID: 1654372721}
-  numberOfTraining: 30
-  numberOfCompeting: 30
+  numberOfTraining: 2
+  numberOfCompeting: 4
 --- !u!4 &1725130422
 Transform:
   m_ObjectHideFlags: 0
@@ -4447,7 +4447,7 @@ GameObject:
   - component: {fileID: 1895409717}
   - component: {fileID: 1895409716}
   m_Layer: 0
-  m_Name: CakeScaling
+  m_Name: Scale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

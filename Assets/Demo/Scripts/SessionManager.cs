@@ -20,7 +20,6 @@ public class SessionManager : MonoBehaviour
     public int numberOfCompeting = 10;
 
     private string instruction = "- {0} the cake to the target. \n- Be as precise and fast as you can. \n- Press the button below to validate.";
-    private string[] sessionSubTitle = {"Move", "Rotate", "Scale", "Manipulate"};
     private int sessionId = -1;
     private int trialId = 0;
     private bool isTraining;
@@ -40,13 +39,14 @@ public class SessionManager : MonoBehaviour
         buttonNextSession.SetActive(false);
         trialId = 0;
         sessionId += 1;
-        if (sessionId < sessionSubTitle.Length)
+        if (sessionId < sessionCakes.Length)
         {
             buttonValidate.SetActive(true);
             isTraining = true;
             textTitle.text = "TRAINING";
-            textSubTitle.text = sessionSubTitle[sessionId].Remove(sessionSubTitle[sessionId].Length - 1).ToUpper() + "ING";
-            textInstruction.text = string.Format(instruction, sessionSubTitle[sessionId]);
+            string sessionName = sessionCakes[sessionId].name;
+            textSubTitle.text = sessionName.Remove(sessionName.Length - 1).ToUpper() + "ING";
+            textInstruction.text = string.Format(instruction, sessionName);
             textNumber.text = trialId + "/" + numberOfTraining;
         }
         else

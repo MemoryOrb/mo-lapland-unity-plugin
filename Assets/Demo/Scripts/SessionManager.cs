@@ -14,6 +14,7 @@ public class SessionManager : MonoBehaviour
     public GameObject buttonStartCompeting;
     public GameObject buttonValidate;
     public GameObject[] sessionCakes;
+    public Transform targetCake;
 
     public int numberOfTraining = 5;
     public int numberOfCompeting = 10;
@@ -89,5 +90,20 @@ public class SessionManager : MonoBehaviour
                 buttonValidate.SetActive(false);
             }
         }
+    }
+
+    private void MoveTarget()
+    {
+        targetCake.localPosition = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+    }
+
+    private void RotateTarget()
+    {
+        targetCake.localRotation = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+    }
+
+    private void ScaleTarget()
+    {
+        targetCake.localScale = new Vector3(Random.Range(0.25f, 0.75f), Random.Range(0.10f, 0.30f), Random.Range(0.25f, 0.75f));
     }
 }

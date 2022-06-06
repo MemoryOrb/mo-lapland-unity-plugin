@@ -36,11 +36,15 @@ public class SessionManager : MonoBehaviour
 
     public void NextSession()
     {
+        ResetCake(targetCake);
         buttonNextSession.SetActive(false);
         trialId = 0;
         sessionId += 1;
+        ClearCake();
+        sessionCakes[sessionId].SetActive(true);
         if (sessionId < sessionCakes.Length)
         {
+            SetTarget();
             buttonValidate.SetActive(true);
             isTraining = true;
             textTitle.text = "TRAINING";
@@ -61,6 +65,7 @@ public class SessionManager : MonoBehaviour
 
     public void StartCompeting()
     {
+        SetTarget();
         trialId = 0;
         isTraining = false;
         textTitle.text = "COMPETING";
@@ -71,6 +76,7 @@ public class SessionManager : MonoBehaviour
 
     public void Validate()
     {
+        SetTarget();
         trialId += 1;
         if (isTraining)
         {
@@ -90,6 +96,46 @@ public class SessionManager : MonoBehaviour
                 buttonValidate.SetActive(false);
             }
         }
+    }
+
+    private void SetTarget() 
+    {
+        ResetCake(sessionCakes[sessionId].transform);
+        
+        string sessionName = sessionCakes[sessionId].name;
+        switch (sessionName)
+        {
+            case "Move":
+                MoveTarget();
+            break;
+            case "Rotate":
+                RotateTarget();
+            break;
+            case "Scale":
+                ScaleTarget();
+            break;
+            case "Manipulate":
+            default:
+                MoveTarget();
+                RotateTarget();
+                ScaleTarget();
+            break;
+        }
+    }
+
+    private void ClearCake()
+    {
+        for (int i = 0; i < sessionCakes.Length; i++)
+        {
+            sessionCakes[i].SetActive(false);
+        }
+    }
+
+    private void ResetCake(Transform t)
+    {
+        t.localPosition = new Vector3(0f, 0f, 0f);
+        t.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        t.localScale = new Vector3(0.5f, 0.2f, 0.5f);
     }
 
     private void MoveTarget()

@@ -81,7 +81,12 @@ public class SessionManager : MonoBehaviour
 
     public void Validate()
     {
-        SaveLog(string.Format("VALIDATE,{0},{1}", GameObjectToString(sessionCakes[sessionId]), TransformToString(targetCake)));
+        SaveLog(string.Format("VALIDATE,{0},{1},{2}", 
+            GameObjectToString(sessionCakes[sessionId]), 
+            TransformToString(targetCake), 
+            DifferenceTransformToString(targetCake, sessionCakes[sessionId].transform)
+        ));
+        
         SetTarget();
         trialId += 1;
         if (isTraining)
@@ -180,6 +185,19 @@ public class SessionManager : MonoBehaviour
                 t.localScale.x + "," +
                 t.localScale.y + "," +
                 t.localScale.z;
+    }
+
+    string DifferenceTransformToString(Transform t1, Transform t2)
+    {
+        return  (t1.localPosition.x - t2.localPosition.x) + "," +
+                (t1.localPosition.y - t2.localPosition.y) + "," +
+                (t1.localPosition.z - t2.localPosition.z) + "," +
+                Mathf.DeltaAngle(t1.localRotation.x, t2.localRotation.x) + "," +
+                Mathf.DeltaAngle(t1.localRotation.x, t2.localRotation.x) + "," +
+                Mathf.DeltaAngle(t1.localRotation.x, t2.localRotation.x) + "," +
+                (t1.localScale.x - t2.localScale.x) + "," +
+                (t1.localScale.y - t2.localScale.y) + "," +
+                (t1.localScale.z - t2.localScale.z);       
     }
 
     void SaveLog(string data)

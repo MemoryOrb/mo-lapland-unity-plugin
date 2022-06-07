@@ -27,6 +27,10 @@ public class SessionManager : MonoBehaviour
 
     private string pathFileName = "logs.txt";
 
+    private System.DateTime firstActionTime;
+    private System.DateTime lastActionTime;
+    private bool hasStarted = false;
+
     void Start()
     {
         NextSession();
@@ -39,6 +43,7 @@ public class SessionManager : MonoBehaviour
 
     public void NextSession()
     {
+        hasStarted = false;
         SaveLog("NEXT-SESSION");
         ResetCake(targetCake);
         buttonNextSession.SetActive(false);
@@ -69,6 +74,7 @@ public class SessionManager : MonoBehaviour
 
     public void StartCompeting()
     {
+        hasStarted = false;
         SaveLog("START-COMPETING");
         SetTarget();
         trialId = 0;
@@ -81,10 +87,13 @@ public class SessionManager : MonoBehaviour
 
     public void Validate()
     {
-        SaveLog(string.Format("VALIDATE,{0},{1},{2}", 
+        hasStarted = false;
+        SaveLog(string.Format("VALIDATE,{0},{1},{2},{3},{4}", 
             GameObjectToString(sessionCakes[sessionId]), 
             TransformToString(targetCake), 
-            DifferenceTransformToString(targetCake, sessionCakes[sessionId].transform)
+            DifferenceTransformToString(targetCake, sessionCakes[sessionId].transform),
+            (lastActionTime - firstActionTime).TotalMilliseconds,
+            (System.DateTime.Now - firstActionTime).TotalMilliseconds
         ));
         
         SetTarget();
@@ -207,41 +216,65 @@ public class SessionManager : MonoBehaviour
 
     public void TranslateStart(GameObject g)
     {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
         SaveLog("TRANSLATE-START," + GameObjectToString(g));
     }
 
     public void TranslateStop(GameObject g)
     {
+        lastActionTime = System.DateTime.Now;
         SaveLog("TRANSLATE-STOP," + GameObjectToString(g));
     }
 
     public void RotateStart(GameObject g)
     {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
         SaveLog("ROTATE-START," + GameObjectToString(g));
     }
 
     public void RotateStop(GameObject g)
     {
+        lastActionTime = System.DateTime.Now;
         SaveLog("ROTATE-STOP," + GameObjectToString(g));
     }
 
     public void ScaleStart(GameObject g)
     {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
         SaveLog("SCALE-START," + GameObjectToString(g));
     }
 
     public void ScaleStop(GameObject g)
     {
+        lastActionTime = System.DateTime.Now;
         SaveLog("SCALE-STOP," + GameObjectToString(g));
     }
 
     public void ManipulationStarted(GameObject g)
     {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
         SaveLog("MANIPULATION-START," + GameObjectToString(g));
     }
 
     public void ManipulationEnded(GameObject g)
     {
+        lastActionTime = System.DateTime.Now;
         SaveLog("MANIPULATION-END," + GameObjectToString(g));
     }
 }

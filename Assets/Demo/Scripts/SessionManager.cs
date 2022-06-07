@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
 
 public class SessionManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class SessionManager : MonoBehaviour
     private int trialId = 0;
     private bool isTraining;
 
+    private string pathFileName = "logs.txt";
+
     void Start()
     {
         NextSession();
@@ -36,6 +39,7 @@ public class SessionManager : MonoBehaviour
 
     public void NextSession()
     {
+        SaveLog("NEXT-SESSION");
         ResetCake(targetCake);
         buttonNextSession.SetActive(false);
         trialId = 0;
@@ -65,6 +69,7 @@ public class SessionManager : MonoBehaviour
 
     public void StartCompeting()
     {
+        SaveLog("START-COMPETING");
         SetTarget();
         trialId = 0;
         isTraining = false;
@@ -76,6 +81,7 @@ public class SessionManager : MonoBehaviour
 
     public void Validate()
     {
+        SaveLog(string.Format("VALIDATE,{0},{1}", GameObjectToString(sessionCakes[sessionId]), TransformToString(targetCake)));
         SetTarget();
         trialId += 1;
         if (isTraining)
@@ -151,5 +157,73 @@ public class SessionManager : MonoBehaviour
     private void ScaleTarget()
     {
         targetCake.localScale = new Vector3(Random.Range(0.25f, 0.75f), Random.Range(0.10f, 0.30f), Random.Range(0.25f, 0.75f));
+    }
+
+
+    /*
+    *   LOGS
+    */
+
+    string GameObjectToString(GameObject g)
+    {
+        return g.name + "," + TransformToString(g.transform);
+    }
+
+    string TransformToString(Transform t)
+    {
+        return  t.localPosition.x + "," + 
+                t.localPosition.y + "," + 
+                t.localPosition.z + "," + 
+                t.localRotation.x + "," + 
+                t.localRotation.y + "," + 
+                t.localRotation.z + "," +
+                t.localScale.x + "," +
+                t.localScale.y + "," +
+                t.localScale.z;
+    }
+
+    void SaveLog(string data)
+    {
+        File.AppendAllText(pathFileName, string.Format("{0},{1},{2},{3},{4}\n", System.DateTime.Now.ToString("HH:mm:ss.fff"), sessionId, isTraining, trialId, data));
+    }
+
+    public void TranslateStart(GameObject g)
+    {
+        SaveLog("TRANSLATE-START," + GameObjectToString(g));
+    }
+
+    public void TranslateStop(GameObject g)
+    {
+        SaveLog("TRANSLATE-STOP," + GameObjectToString(g));
+    }
+
+    public void RotateStart(GameObject g)
+    {
+        SaveLog("ROTATE-START," + GameObjectToString(g));
+    }
+
+    public void RotateStop(GameObject g)
+    {
+        SaveLog("ROTATE-STOP," + GameObjectToString(g));
+    }
+
+    public void ScaleStart(GameObject g)
+    {
+        SaveLog("SCALE-START," + GameObjectToString(g));
+    }
+
+    public void ScaleStop(GameObject g)
+    {
+        SaveLog("SCALE-STOP," + GameObjectToString(g));
+    }
+
+    public void ManipulationStarted(GameObject g)
+    {
+        SaveLog("MANIPULATION-START," + GameObjectToString(g));
+    }
+
+    public void ManipulationEnded(GameObject g)
+    {
+        SaveLog("MANIPULATION-END," + GameObjectToString(g));
     }
 }

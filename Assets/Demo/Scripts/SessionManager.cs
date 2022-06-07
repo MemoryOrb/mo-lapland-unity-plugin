@@ -50,9 +50,9 @@ public class SessionManager : MonoBehaviour
         trialId = 0;
         sessionId += 1;
         ClearCake();
-        sessionCakes[sessionId].SetActive(true);
         if (sessionId < sessionCakes.Length)
         {
+            sessionCakes[sessionId].SetActive(true);
             SetTarget();
             buttonValidate.SetActive(true);
             isTraining = true;

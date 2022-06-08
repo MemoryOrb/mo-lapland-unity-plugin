@@ -17,6 +17,34 @@ namespace MemoryOrbLapland
         public event Action<Hand, Direction> OnRotaryEncoderChangeState = delegate { };
         public event Action<Potentiometer, int> OnPotentiometerChangeState = delegate { };
 
+        private bool[][] isButtonPressed;
+        private bool[] isRotaryButtonPressed;
+        private int[] potentiometerValues;
+
+        public MemoryOrb()
+        {
+            isButtonPressed = new bool[2][];
+            isButtonPressed[0] = new bool[5];
+            isButtonPressed[1] = new bool[5];
+            isRotaryButtonPressed = new bool[2];
+            potentiometerValues = new int[2] {-1, -1};
+        }
+
+        public bool IsButtonPressed(Hand h, Finger f)
+        {
+            return isButtonPressed[(int)h][(int)f];
+        }
+
+        public bool IsRotaryButtonPressed(Hand h)
+        {
+            return isRotaryButtonPressed[(int) h];
+        }
+
+        public int GetPotentiometerValue(Potentiometer p)
+        {
+            return potentiometerValues[(int) p];
+        }
+
         public void Feed(string message)
         {
             string[] data = message.TrimEnd().Split(';');
@@ -27,27 +55,31 @@ namespace MemoryOrbLapland
                 {
                     case "B": // Button
                         int buttonID = int.Parse(subdata[1]);
+                        ButtonState state = (ButtonState) int.Parse(subdata[2]);
                         if (buttonID >= 10)
                         {
+                            isRotaryButtonPressed[(buttonID % 10)] = (state == ButtonState.Pressed);
                             OnRotaryButtonChangeState?.Invoke(
                                 (Hand) (buttonID % 10),
-                                (ButtonState) int.Parse(subdata[2])
+                                state
                             );
                         }
                         else if (buttonID >= 5)
                         {
+                            isButtonPressed[(int) Hand.Left][(9 - buttonID)] = (state == ButtonState.Pressed);
                             OnButtonChangeState?.Invoke(
                                 Hand.Left,
                                 (Finger) (9 - buttonID),
-                                (ButtonState) int.Parse(subdata[2])
+                                state
                             );
                         }
                         else 
                         {
+                            isButtonPressed[(int) Hand.Right][buttonID] = (state == ButtonState.Pressed);
                             OnButtonChangeState?.Invoke(
                                 Hand.Right,
                                 (Finger) buttonID,
-                                (ButtonState) int.Parse(subdata[2])
+                                state
                             );
                         }
                     break;
@@ -58,9 +90,12 @@ namespace MemoryOrbLapland
                         );
                     break;
                     case "P": // Potentiometer
+                        int potentiometerId = int.Parse(subdata[1]);
+                        int value = int.Parse(subdata[2]);
+                        potentiometerValues[potentiometerId] = value;
                         OnPotentiometerChangeState?.Invoke(
-                            (Potentiometer) int.Parse(subdata[1]), 
-                            int.Parse(subdata[2])
+                            (Potentiometer) potentiometerId, 
+                            value
                         );
                     break;
                 }

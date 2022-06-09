@@ -47,7 +47,7 @@ namespace MemoryOrbLapland
 
         public void Feed(string message)
         {
-            string[] data = message.TrimEnd().Split(';');
+            string[] data = message.TrimEnd().Replace("\r", "").Replace("\n", "").Split(';');
             for (int i = 0; i < data.Length-1; i++)
             {
                 string[] subdata = data[i].Split(':');

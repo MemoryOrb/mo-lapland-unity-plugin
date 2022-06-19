@@ -15,6 +15,9 @@ public class MemoryOrbManager : MonoBehaviour
     private NetworkUtils network;
     private MemoryOrb memoryOrb;
 
+    private float lerpColorDuration = 0.75f;
+    private float[] t = {1f, 1f};
+    
     void Start()
     {
         network = new NetworkUtils();
@@ -61,6 +64,17 @@ public class MemoryOrbManager : MonoBehaviour
     private void MemoryOrb_OnRotaryEncoderChangeState(Hand h, Direction d)
     {
         Debug.Log("Rotary " + h + " " + d);
+        if (!memoryOrb.IsRotaryButtonPressed(h))
+        {
+            int index = (int) h;
+            if (t[index] >= lerpColorDuration)
+            {
+                t[index] = 0f;
+                StartCoroutine(LerpColor(rotaryCapsRenderer[index].material, index));
+            } else {
+                t[index] = 0f;
+            }
+        }
     }
 
     private void MemoryOrb_OnPotentiometerChangeState(Potentiometer p, int value)
@@ -76,6 +90,16 @@ public class MemoryOrbManager : MonoBehaviour
             var circularAngle = memoryOrbLeft.localRotation.eulerAngles;
             circularAngle.x = (value-50)*-1.8f;
             memoryOrbLeft.localRotation = Quaternion.Euler(circularAngle);
+        }
+    }
+
+    IEnumerator LerpColor(Material m, int tIndex)
+    {
+        while (t[tIndex] < lerpColorDuration)
+        {
+            t[tIndex] += Time.deltaTime;
+            m.color = Color.Lerp(Color.cyan, Color.black, t[tIndex] / lerpColorDuration);
+            yield return null;
         }
     }
 }

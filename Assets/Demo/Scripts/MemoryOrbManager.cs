@@ -12,6 +12,10 @@ public class MemoryOrbManager : MonoBehaviour
     public Renderer[] buttonsRightRenderer;
     public Renderer[] rotaryCapsRenderer; // ordered left, right
 
+    public Renderer[] bodyRenderer;
+    public Material transparentBodyMaterial;
+    public Material opaqueBodyMaterial;
+
     private NetworkUtils network;
     private MemoryOrb memoryOrb;
 
@@ -20,6 +24,8 @@ public class MemoryOrbManager : MonoBehaviour
     
     void Start()
     {
+        //memoryBodyColor = memoryBodyMaterial.color;
+
         network = new NetworkUtils();
         network.OnMessageReceived += NetworkUtils_OnMessageReceived;
         network.StartServer("55666");
@@ -48,11 +54,17 @@ public class MemoryOrbManager : MonoBehaviour
         Debug.Log("Button " + h + " " + f + " " + b);
         if (h == Hand.Left)
         {
-            buttonsLeftRenderer[(int) f].materials[0].SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
+            buttonsLeftRenderer[(int) f].material.SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
         } else // Right
         {
-            buttonsRightRenderer[(int) f].materials[0].SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
+            buttonsRightRenderer[(int) f].material.SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);   
         }
+        
+        Material m = b == ButtonState.Pressed ? transparentBodyMaterial : opaqueBodyMaterial;
+        foreach (Renderer r in bodyRenderer)
+        {
+            r.material = m;
+        }            
     }
 
     private void MemoryOrb_OnRotaryButtonChangeState(Hand h, ButtonState b)

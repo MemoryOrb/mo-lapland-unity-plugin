@@ -8,6 +8,9 @@ public class MemoryOrbManager : MonoBehaviour
     public Transform memoryOrbRight; // external cylinder
     public Transform memoryOrbLeft; // internal
 
+    public Renderer[] buttonsLeftRenderer; // ordered from thumb to little finger
+    public Renderer[] buttonsRightRenderer;
+
     private NetworkUtils network;
     private MemoryOrb memoryOrb;
 
@@ -39,6 +42,13 @@ public class MemoryOrbManager : MonoBehaviour
     private void MemoryOrb_OnButtonChangeState(Hand h, Finger f, ButtonState b)
     {
         Debug.Log("Button " + h + " " + f + " " + b);
+        if (h == Hand.Left)
+        {
+            buttonsLeftRenderer[(int) f].materials[0].SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
+        } else // Right
+        {
+            buttonsRightRenderer[(int) f].materials[0].SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
+        }
     }
 
     private void MemoryOrb_OnRotaryButtonChangeState(Hand h, ButtonState b)

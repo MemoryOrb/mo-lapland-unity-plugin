@@ -10,6 +10,7 @@ public class MemoryOrbManager : MonoBehaviour
 
     public Renderer[] buttonsLeftRenderer; // ordered from thumb to little finger
     public Renderer[] buttonsRightRenderer;
+    public Renderer[] rotaryCapsRenderer; // ordered left, right
 
     private NetworkUtils network;
     private MemoryOrb memoryOrb;
@@ -54,6 +55,7 @@ public class MemoryOrbManager : MonoBehaviour
     private void MemoryOrb_OnRotaryButtonChangeState(Hand h, ButtonState b)
     {
         Debug.Log("RotaryButton " + h + " " + b);
+        rotaryCapsRenderer[(int) h].materials[0].SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
     }
 
     private void MemoryOrb_OnRotaryEncoderChangeState(Hand h, Direction d)

@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 223978632}
   - component: {fileID: 223978634}
   - component: {fileID: 223978633}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: TextTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2069,7 +2069,7 @@ GameObject:
   - component: {fileID: 894235712}
   - component: {fileID: 894235714}
   - component: {fileID: 894235713}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: TextSubTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3097,7 +3097,7 @@ GameObject:
   - component: {fileID: 1197305582}
   - component: {fileID: 1197305581}
   - component: {fileID: 1197305580}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3416,7 +3416,7 @@ GameObject:
   - component: {fileID: 1326995956}
   - component: {fileID: 1326995958}
   - component: {fileID: 1326995957}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: TextInstruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5828,7 +5828,7 @@ GameObject:
   - component: {fileID: 2133655264}
   - component: {fileID: 2133655266}
   - component: {fileID: 2133655265}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: TextNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5964,7 +5964,7 @@ GameObject:
   - component: {fileID: 4900337370110572813}
   - component: {fileID: 8422615009989441156}
   - component: {fileID: 7850718293434203268}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: UI Backplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

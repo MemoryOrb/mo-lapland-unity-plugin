@@ -801,6 +801,7 @@ GameObject:
   - component: {fileID: 450242559}
   - component: {fileID: 450242566}
   - component: {fileID: 450242565}
+  - component: {fileID: 450242567}
   m_Layer: 0
   m_Name: Rotate
   m_TagString: Untagged
@@ -1234,6 +1235,18 @@ MonoBehaviour:
   scaleMinimum: 1
   scaleMaximum: 1
   relativeToInitialState: 1
+--- !u!114 &450242567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450242557}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b498f880895d9549a06263d3bb15c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &460016979 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e659c27c2f3748d4c85d87a932c1ce96, type: 3}
@@ -1294,6 +1307,7 @@ GameObject:
   - component: {fileID: 653147871}
   - component: {fileID: 653147870}
   - component: {fileID: 653147869}
+  - component: {fileID: 653147877}
   m_Layer: 0
   m_Name: Move
   m_TagString: Untagged
@@ -1727,6 +1741,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &653147877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653147867}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b498f880895d9549a06263d3bb15c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &696993003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3312,7 +3338,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1272171085
 GameObject:
@@ -3346,7 +3372,7 @@ Transform:
   - {fileID: 638136533}
   - {fileID: 313709787}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1272171087
 MonoBehaviour:
@@ -3701,7 +3727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1490635807990396793, guid: a6d31e87a23924978869987f4494b30a, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1490635807990396793, guid: a6d31e87a23924978869987f4494b30a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3932,6 +3958,7 @@ GameObject:
   - component: {fileID: 1617078997}
   - component: {fileID: 1617078996}
   - component: {fileID: 1617078995}
+  - component: {fileID: 1617079001}
   m_Layer: 0
   m_Name: Manipulate
   m_TagString: Untagged
@@ -4380,6 +4407,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1617079001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617078993}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b498f880895d9549a06263d3bb15c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &1626190298 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4854875015936881942, guid: 834e526f9df6f499393594cbe1655005, type: 3}
@@ -4623,6 +4662,7 @@ MonoBehaviour:
   targetCake: {fileID: 1654372721}
   numberOfTraining: 2
   numberOfCompeting: 3
+  memoryOrbActivated: 1
 --- !u!4 &1725130422
 Transform:
   m_ObjectHideFlags: 0
@@ -4636,7 +4676,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1779814462
 GameObject:
@@ -5051,6 +5091,7 @@ GameObject:
   - component: {fileID: 1895409710}
   - component: {fileID: 1895409717}
   - component: {fileID: 1895409716}
+  - component: {fileID: 1895409718}
   m_Layer: 0
   m_Name: Scale
   m_TagString: Untagged
@@ -5483,6 +5524,18 @@ MonoBehaviour:
   proximityType: 3
   constraintOnMovement: -1
   useLocalSpaceForConstraint: 0
+--- !u!114 &1895409718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895409708}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b498f880895d9549a06263d3bb15c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1908446934
 PrefabInstance:
   m_ObjectHideFlags: 0

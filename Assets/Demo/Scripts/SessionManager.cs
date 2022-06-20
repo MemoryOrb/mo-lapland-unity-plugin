@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.IO;
+using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
+using Microsoft.MixedReality.Toolkit.UI;
 
 public class SessionManager : MonoBehaviour
 {
@@ -31,8 +33,23 @@ public class SessionManager : MonoBehaviour
     private System.DateTime lastActionTime;
     private bool hasStarted = false;
 
+    public bool memoryOrbActivated = true;
+
     void Start()
     {
+        if (memoryOrbActivated)
+        {
+            foreach (GameObject g in sessionCakes)
+            {
+                var b = g.GetComponent<BoundsControl>();
+                b.enabled = false;
+                var o = g.GetComponent<ObjectManipulator>();
+                o.enabled = false;
+                
+                var m = g.GetComponent<MemoryOrbManipulator>();
+                m.enabled = true;
+            }
+        }
         NextSession();
     }
 

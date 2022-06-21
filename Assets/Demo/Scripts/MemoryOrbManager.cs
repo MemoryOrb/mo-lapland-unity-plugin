@@ -21,22 +21,33 @@ public class MemoryOrbManager : MonoBehaviour
 
     private float lerpColorDuration = 0.75f;
     private float[] t = {1f, 1f};
+
+    public bool memoryOrbActivated = true;
     
-    void Start()
+    void Awake()
     {
-        //memoryBodyColor = memoryBodyMaterial.color;
-
-        network = new NetworkUtils();
-        network.OnMessageReceived += NetworkUtils_OnMessageReceived;
-        network.StartServer("55666");
-        network.Listen();
-        Debug.Log("StartServer");
-
         memoryOrb = new MemoryOrb();
         memoryOrb.OnButtonChangeState += MemoryOrb_OnButtonChangeState;
         memoryOrb.OnRotaryButtonChangeState += MemoryOrb_OnRotaryButtonChangeState;
         memoryOrb.OnRotaryEncoderChangeState += MemoryOrb_OnRotaryEncoderChangeState;
         memoryOrb.OnPotentiometerChangeState += MemoryOrb_OnPotentiometerChangeState;
+    }
+
+    void Start()
+    {
+        if (memoryOrbActivated)
+        {
+            network = new NetworkUtils();
+            network.OnMessageReceived += NetworkUtils_OnMessageReceived;
+            network.StartServer("55666");
+            network.Listen();
+            Debug.Log("StartServer");
+        }
+    }
+
+    public MemoryOrb GetMemoryOrb()
+    {
+        return memoryOrb;
     }
 
     void OnDestroy()
@@ -46,12 +57,13 @@ public class MemoryOrbManager : MonoBehaviour
 
     private void NetworkUtils_OnMessageReceived(string message)
     {
+        Debug.Log(message);
         memoryOrb.Feed(message);
     }
 
     private void MemoryOrb_OnButtonChangeState(Hand h, Finger f, ButtonState b)
     {
-        Debug.Log("Button " + h + " " + f + " " + b);
+        // Debug.Log("Button " + h + " " + f + " " + b);
         if (h == Hand.Left)
         {
             buttonsLeftRenderer[(int) f].material.SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
@@ -59,7 +71,7 @@ public class MemoryOrbManager : MonoBehaviour
         {
             buttonsRightRenderer[(int) f].material.SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);   
         }
-        
+
         Material m = b == ButtonState.Pressed ? transparentBodyMaterial : opaqueBodyMaterial;
         foreach (Renderer r in bodyRenderer)
         {
@@ -69,7 +81,7 @@ public class MemoryOrbManager : MonoBehaviour
 
     private void MemoryOrb_OnRotaryButtonChangeState(Hand h, ButtonState b)
     {
-        Debug.Log("RotaryButton " + h + " " + b);
+        // Debug.Log("RotaryButton " + h + " " + b);
         rotaryCapsRenderer[(int) h].materials[0].SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
     }
 
@@ -91,7 +103,7 @@ public class MemoryOrbManager : MonoBehaviour
 
     private void MemoryOrb_OnPotentiometerChangeState(Potentiometer p, int value)
     {
-        Debug.Log("Potentiometer " + p + " " + value);
+        // Debug.Log("Potentiometer " + p + " " + value);
         if (p == Potentiometer.Slide)
         {
             float xslide = (0.03f * (value + 1.0f)) / 100.0f;

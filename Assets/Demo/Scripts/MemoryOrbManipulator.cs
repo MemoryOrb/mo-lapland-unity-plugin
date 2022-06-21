@@ -35,6 +35,8 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
     [SerializeField] private UnityEvent OnManipulationStarted = new UnityEvent();
     [SerializeField] private UnityEvent OnManipulationEnded = new UnityEvent();
 
+    [SerializeField] private float step = 0.01f;
+
     void Start()
     {
         target = transform;
@@ -189,6 +191,9 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
 
     private void MemoryOrb_OnButtonChangeState(Hand h, Finger f, ButtonState b)
     {
+        if (f != Finger.Thumb)
+            return;
+
         if (!isFocused)
             return;
 
@@ -249,6 +254,132 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
                 default:
                 break;
             }   
+        }
+
+        //if (memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Left, Finger.Little) || memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Right, Finger.Little))
+        {
+            // left - clockwise = move X up / 2, scale X down
+            // left - anti = move X down / 2, scale X up
+            // right - clockwise = move X down / 2, scale X down, 
+            // right - anti = move X up / 2, scale X up
+
+            float signedScaleStep;
+            float signedPositionStep;
+            if (d == Direction.Clockwise)
+            {
+                if (isOrientationDirectionPositive) 
+                {
+                    signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
+                    signedScaleStep = step * -1f;
+                }
+                else 
+                {
+                    signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
+                    signedScaleStep = step;
+                }
+            } else
+            {
+                if (isOrientationDirectionPositive) 
+                {
+                    signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
+                    signedScaleStep = step;
+                }
+                else 
+                {
+                    signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
+                    signedScaleStep = step * -1f;
+                }
+            }
+
+            switch (orientationAxis)
+            {
+                case 'x':
+                transform.localPosition = new Vector3(
+                    transform.localPosition.x + signedPositionStep,
+                    transform.localPosition.y,
+                    transform.localPosition.z
+                );
+                transform.localScale = new Vector3(
+                    transform.localScale.x + signedScaleStep, 
+                    transform.localScale.y, 
+                    transform.localScale.z
+                );
+                break;
+                case 'y':
+                if (d == Direction.Clockwise)
+                {
+                    if (isOrientationDirectionPositive) 
+                    {
+                        signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
+                        signedScaleStep = step * -1f;
+                    }
+                    else
+                    {
+                        signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
+                        signedScaleStep = step;
+                    }
+                } else
+                {
+                    if (isOrientationDirectionPositive) 
+                    {
+                        signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
+                        signedScaleStep = step;
+                    }
+                    else 
+                    {
+                        signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
+                        signedScaleStep = step * -1f;
+                    }
+                }
+                transform.localPosition = new Vector3(
+                    transform.localPosition.x,
+                    transform.localPosition.y + signedPositionStep,
+                    transform.localPosition.z
+                );
+                transform.localScale = new Vector3(
+                    transform.localScale.x, 
+                    transform.localScale.y + signedScaleStep, 
+                    transform.localScale.z
+                );
+                break;
+                case 'z':
+                if (d == Direction.Clockwise)
+                {
+                    if (isOrientationDirectionPositive) 
+                    {
+                        signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
+                        signedScaleStep = step * -1f;
+                    }
+                    else 
+                    {
+                        signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
+                        signedScaleStep = step;
+                    }
+                } else
+                {
+                    if (isOrientationDirectionPositive) 
+                    {
+                        signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
+                        signedScaleStep = step;
+                    }
+                    else 
+                    {
+                        signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
+                        signedScaleStep = step * -1f;
+                    }
+                }
+                transform.localPosition = new Vector3(
+                    transform.localPosition.x,
+                    transform.localPosition.y,
+                    transform.localPosition.z + signedPositionStep
+                );
+                transform.localScale = new Vector3(
+                    transform.localScale.x, 
+                    transform.localScale.y, 
+                    transform.localScale.z + signedScaleStep
+                );
+                break;
+            }
         }
     }
 

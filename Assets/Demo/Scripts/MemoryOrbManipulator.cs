@@ -32,6 +32,9 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
     public GameObject zp;
     public GameObject zn;
 
+    [SerializeField] private UnityEvent OnManipulationStarted = new UnityEvent();
+    [SerializeField] private UnityEvent OnManipulationEnded = new UnityEvent();
+
     void Start()
     {
         target = transform;
@@ -192,11 +195,13 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
         if (!isMoving)
         {
             isMoving = true;
+            OnManipulationStarted?.Invoke();
             this.transform.SetParent(parentWhenMoving);
         }
         else
         {
             isMoving = false;
+            OnManipulationEnded?.Invoke();
             this.transform.SetParent(parentWhenStill);
             if (!realFocused) // should very rarely happen
                 PointerExit();

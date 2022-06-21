@@ -37,6 +37,9 @@ public class SessionManager : MonoBehaviour
 
     void Start()
     {
+        firstActionTime = System.DateTime.Now;
+        lastActionTime = System.DateTime.Now;
+        
         if (memoryOrbActivated)
         {
             foreach (GameObject g in sessionCakes)

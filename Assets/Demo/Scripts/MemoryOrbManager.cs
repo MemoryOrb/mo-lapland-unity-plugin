@@ -57,13 +57,12 @@ public class MemoryOrbManager : MonoBehaviour
 
     private void NetworkUtils_OnMessageReceived(string message)
     {
-        Debug.Log(message);
+        // Debug.Log(message);
         memoryOrb.Feed(message);
     }
 
     private void MemoryOrb_OnButtonChangeState(Hand h, Finger f, ButtonState b)
     {
-        // Debug.Log("Button " + h + " " + f + " " + b);
         if (h == Hand.Left)
         {
             buttonsLeftRenderer[(int) f].material.SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
@@ -81,13 +80,11 @@ public class MemoryOrbManager : MonoBehaviour
 
     private void MemoryOrb_OnRotaryButtonChangeState(Hand h, ButtonState b)
     {
-        // Debug.Log("RotaryButton " + h + " " + b);
         rotaryCapsRenderer[(int) h].materials[0].SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);
     }
 
     private void MemoryOrb_OnRotaryEncoderChangeState(Hand h, Direction d)
     {
-        Debug.Log("Rotary " + h + " " + d);
         if (!memoryOrb.IsRotaryButtonPressed(h))
         {
             int index = (int) h;
@@ -103,7 +100,6 @@ public class MemoryOrbManager : MonoBehaviour
 
     private void MemoryOrb_OnPotentiometerChangeState(Potentiometer p, int value)
     {
-        // Debug.Log("Potentiometer " + p + " " + value);
         if (p == Potentiometer.Slide)
         {
             float xslide = (0.03f * (value + 1.0f)) / 100.0f;

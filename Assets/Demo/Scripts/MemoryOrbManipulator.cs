@@ -219,33 +219,36 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
         if (isFocused == false && isFocusedByMRTK == false)
             return;
         
-        float angle = 1f;
-        if (h == Hand.Left)
+        if (memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Left, Finger.Index) || memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Right, Finger.Index))
         {
-            if (isOrientationDirectionPositive)
-                angle = d == Direction.Clockwise ? 1f : -1f;
-            else
-                angle = d == Direction.Clockwise ? -1f : 1f;
-        } else // right
-        {
-            if (isOrientationDirectionPositive)
-                angle = d == Direction.Clockwise ? -1f : 1f;
-            else
-                angle = d == Direction.Clockwise ? 1f : -1f;
-        }
-        switch (orientationAxis)
-        {
-            case 'x':
-            transform.Rotate(angle, 0f, 0f);
-            break;
-            case 'y':
-            transform.Rotate(0f, angle, 0f);
-            break;
-            case 'z':
-            transform.Rotate(0f, 0f, angle);
-            break;
-            default:
-            break;
+            float angle = 1f;
+            if (h == Hand.Left)
+            {
+                if (isOrientationDirectionPositive)
+                    angle = d == Direction.Clockwise ? 1f : -1f;
+                else
+                    angle = d == Direction.Clockwise ? -1f : 1f;
+            } else // right
+            {
+                if (isOrientationDirectionPositive)
+                    angle = d == Direction.Clockwise ? -1f : 1f;
+                else
+                    angle = d == Direction.Clockwise ? 1f : -1f;
+            }
+            switch (orientationAxis)
+            {
+                case 'x':
+                transform.Rotate(angle, 0f, 0f);
+                break;
+                case 'y':
+                transform.Rotate(0f, angle, 0f);
+                break;
+                case 'z':
+                transform.Rotate(0f, 0f, angle);
+                break;
+                default:
+                break;
+            }   
         }
     }
 

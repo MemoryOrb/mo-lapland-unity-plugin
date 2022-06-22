@@ -23,6 +23,8 @@ public class MemoryOrbManager : MonoBehaviour
     private float[] t = {1f, 1f};
 
     public bool memoryOrbActivated = true;
+
+    public ReadSerial readSerial;
     
     void Awake()
     {
@@ -37,12 +39,24 @@ public class MemoryOrbManager : MonoBehaviour
     {
         if (memoryOrbActivated)
         {
+            /*
             network = new NetworkUtils();
             network.OnMessageReceived += NetworkUtils_OnMessageReceived;
             network.StartServer("55666");
             network.Listen();
             Debug.Log("StartServer");
+            */
+            if (readSerial != null) 
+            {
+                readSerial.OnRead += ReadSerial_OnRead;
+            }
         }
+    }
+
+    private void ReadSerial_OnRead(string message)
+	{
+        //Debug.Log(message);
+        memoryOrb.Feed(message + ";");
     }
 
     public MemoryOrb GetMemoryOrb()

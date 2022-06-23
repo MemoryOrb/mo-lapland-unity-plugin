@@ -7,44 +7,37 @@ using MemoryOrbLapland;
 
 public class MemoryOrbButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public MemoryOrbManager memoryOrbManager;
+    [SerializeField] private MemoryOrbManager memoryOrbManager;
+    [SerializeField] private UnityEvent OnClick = new UnityEvent();
 
     private bool focused = false;
 
-    [SerializeField] private UnityEvent OnClick = new UnityEvent();
-
-    void Start()
+    void OnEnable()
     {
-        memoryOrbManager.GetMemoryOrb().OnButtonChangeState += MemoryOrb_OnButtonChangeState;
+        memoryOrbManager.GetMemoryOrb().OnRotaryButtonChangeState += MemoryOrb_OnRotaryButtonChangeState;
     }
 
     void OnDisable()
     {
         focused = false;
+        memoryOrbManager.GetMemoryOrb().OnRotaryButtonChangeState -= MemoryOrb_OnRotaryButtonChangeState;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         focused = true;
-        Debug.Log(this.name + " Enter, focused = " + focused);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         focused = false;
-        Debug.Log(this.name + " Exit, focused = " + focused);
     }
 
-    private void MemoryOrb_OnButtonChangeState(Hand h, Finger f, ButtonState b)
+    private void MemoryOrb_OnRotaryButtonChangeState(Hand h, ButtonState b)
     {
-        Debug.Log(this.name + " ButtonChange, focused = " + focused);
-        if (focused)
+        if (focused && b == ButtonState.Pressed)
         {
-            if (memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Left, Finger.Thumb) && memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Right, Finger.Thumb))
-            {
-                Debug.Log("Inkoke OnClick, focused = " + focused + ", gameobject = " + this.name);
-                OnClick?.Invoke();
-            }
+            OnClick?.Invoke();
         }
     }
 }

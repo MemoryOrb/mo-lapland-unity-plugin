@@ -28,10 +28,11 @@ namespace MemoryOrbLapland
         public int writeTimeout = 500;
         private bool _continue = false;
 
-        // Use this for initialization
+        Thread readThread;
+
         void Start () 
         {
-            Thread readThread = new Thread(Read);
+            readThread = new Thread(Read);
 
             _serialPort = new SerialPort(port, Convert.ToInt32(baudrate));
             _serialPort.ReadTimeout = readTimeout;
@@ -41,6 +42,12 @@ namespace MemoryOrbLapland
             _continue = true;
 
             readThread.Start();
+        }
+
+        void OnDestroy()
+        {
+            readThread.Abort();
+            _serialPort.Close();
         }
 
 
@@ -62,10 +69,8 @@ namespace MemoryOrbLapland
 
         public IEnumerator ThisWillBeExecutedOnTheMainThread(string message)
         {
-            Debug.Log("ReadSerial: " + message);
-
+            // Debug.Log("ReadSerial: " + message);
             OnRead(message);
-            
             yield return null;
         }
     }

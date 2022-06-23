@@ -66,7 +66,7 @@ public class MemoryOrbManager : MonoBehaviour
 
     void OnDestroy()
     {
-        network.StopServer();
+        //network.StopServer();
     }
 
     private void NetworkUtils_OnMessageReceived(string message)

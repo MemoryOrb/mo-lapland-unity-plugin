@@ -64,21 +64,12 @@ namespace MemoryOrbLapland
                                 state
                             );
                         }
-                        else if (buttonID >= 5)
+                        else
                         {
-                            isButtonPressed[(int) Hand.Left][(9 - buttonID)] = (state == ButtonState.Pressed);
+                            isButtonPressed[buttonID < 5 ? 0 : 1][buttonID % 5] = state == ButtonState.Pressed;
                             OnButtonChangeState?.Invoke(
-                                Hand.Left,
-                                (Finger) (9 - buttonID),
-                                state
-                            );
-                        }
-                        else 
-                        {
-                            isButtonPressed[(int) Hand.Right][buttonID] = (state == ButtonState.Pressed);
-                            OnButtonChangeState?.Invoke(
-                                Hand.Right,
-                                (Finger) buttonID,
+                                buttonID < 5 ? Hand.Left : Hand.Right,
+                                (Finger) (buttonID % 5),
                                 state
                             );
                         }
@@ -91,7 +82,7 @@ namespace MemoryOrbLapland
                     break;
                     case "P": // Potentiometer
                         int potentiometerId = int.Parse(subdata[1]);
-                        int value = int.Parse(subdata[2]);
+                        int value = int.Parse(subdata[2]) * 100 / 1024;
                         potentiometerValues[potentiometerId] = value;
                         OnPotentiometerChangeState?.Invoke(
                             (Potentiometer) potentiometerId, 

@@ -71,6 +71,12 @@ IMixedRealityFocusHandler
     private UnityEvent OnManipulationEnded = new UnityEvent();
 
     [SerializeField]
+    private UnityEvent OnManipulationRotating = new UnityEvent();
+
+    [SerializeField]
+    private UnityEvent OnManipulationScaling = new UnityEvent();
+
+    [SerializeField]
     private UnityEvent OnRotating = new UnityEvent();
 
     [SerializeField]
@@ -163,15 +169,15 @@ IMixedRealityFocusHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        memoryOrbManager.currentPointer = eventData.enterEventCamera.gameObject.name;
         focused = true;
-
         memoryOrbHelper.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        memoryOrbManager.currentPointer = "none";
         focused = false;
-
         if (isFocusedByMRTK == false) memoryOrbHelper.SetActive(false);
     }
 
@@ -261,7 +267,7 @@ IMixedRealityFocusHandler
                                 Vector3.forward * scaleStep;
                             break;
                     }
-                    OnScaling?.Invoke();
+                    OnManipulationScaling?.Invoke();
                 } // circular potentiometer, use to rotate
                 else
                 {
@@ -288,7 +294,7 @@ IMixedRealityFocusHandler
                             transform.Rotate(0f, 0f, angle);
                             break;
                     }
-                    OnRotating?.Invoke();
+                    OnManipulationRotating?.Invoke();
                 }
             }
         }
@@ -448,12 +454,14 @@ IMixedRealityFocusHandler
 
     void IMixedRealityFocusHandler.OnFocusEnter(FocusEventData eventData)
     {
+        memoryOrbManager.mrtkPointer = true;
         memoryOrbHelper.SetActive(true);
         isFocusedByMRTK = true;
     }
 
     void IMixedRealityFocusHandler.OnFocusExit(FocusEventData eventData)
     {
+        memoryOrbManager.mrtkPointer = false;
         if (focused == false) memoryOrbHelper.SetActive(false);
         isFocusedByMRTK = false;
     }

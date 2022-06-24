@@ -819,6 +819,8 @@ MonoBehaviour:
   opaqueBodyMaterial: {fileID: -6303317554026140419, guid: 0ac6ddfba6e63430a9f745b9bf921b8d, type: 3}
   memoryOrbActivated: 1
   readSerial: {fileID: 1530979069}
+  currentPointer: 
+  mrtkPointer: 0
 --- !u!1 &324317334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,6 +1417,18 @@ MonoBehaviour:
   OnManipulationEnded:
     m_PersistentCalls:
       m_Calls: []
+  OnManipulationRotating:
+    m_PersistentCalls:
+      m_Calls: []
+  OnManipulationScaling:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRotating:
+    m_PersistentCalls:
+      m_Calls: []
+  OnScaling:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &460016979 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e659c27c2f3748d4c85d87a932c1ce96, type: 3}
@@ -1977,6 +1991,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnManipulationRotating:
+    m_PersistentCalls:
+      m_Calls: []
+  OnManipulationScaling:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRotating:
+    m_PersistentCalls:
+      m_Calls: []
+  OnScaling:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &686275937 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3519660802973121457, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
@@ -1991,7 +2017,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6877624337130568524, guid: ac000c5050f00ff419ccf216bc4346d5, type: 3}
       propertyPath: m_Name
-      value: MemoryOrbPointerLeft
+      value: PLeft
       objectReference: {fileID: 0}
     - target: {fileID: 6877624337130568524, guid: ac000c5050f00ff419ccf216bc4346d5, type: 3}
       propertyPath: m_IsActive
@@ -4892,6 +4918,18 @@ MonoBehaviour:
   OnManipulationEnded:
     m_PersistentCalls:
       m_Calls: []
+  OnManipulationRotating:
+    m_PersistentCalls:
+      m_Calls: []
+  OnManipulationScaling:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRotating:
+    m_PersistentCalls:
+      m_Calls: []
+  OnScaling:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!23 &1626190298 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4854875015936881942, guid: 834e526f9df6f499393594cbe1655005, type: 3}
@@ -5136,6 +5174,7 @@ MonoBehaviour:
   numberOfTraining: 2
   numberOfCompeting: 3
   memoryOrbActivated: 1
+  memoryOrbManager: {fileID: 0}
 --- !u!4 &1725130422
 Transform:
   m_ObjectHideFlags: 0
@@ -6041,6 +6080,18 @@ MonoBehaviour:
   OnManipulationEnded:
     m_PersistentCalls:
       m_Calls: []
+  OnManipulationRotating:
+    m_PersistentCalls:
+      m_Calls: []
+  OnManipulationScaling:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRotating:
+    m_PersistentCalls:
+      m_Calls: []
+  OnScaling:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1908446934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6251,7 +6302,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6877624337130568524, guid: ac000c5050f00ff419ccf216bc4346d5, type: 3}
       propertyPath: m_Name
-      value: MemoryOrbPointerRight
+      value: PRight
       objectReference: {fileID: 0}
     - target: {fileID: 6877624337130568524, guid: ac000c5050f00ff419ccf216bc4346d5, type: 3}
       propertyPath: m_IsActive
@@ -9536,7 +9587,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6877624337130568524, guid: ac000c5050f00ff419ccf216bc4346d5, type: 3}
       propertyPath: m_Name
-      value: MemoryOrbPointerFront
+      value: PFront
       objectReference: {fileID: 0}
     - target: {fileID: 6877624337130568524, guid: ac000c5050f00ff419ccf216bc4346d5, type: 3}
       propertyPath: m_IsActive

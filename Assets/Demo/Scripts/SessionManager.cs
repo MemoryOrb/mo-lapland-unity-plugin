@@ -35,6 +35,8 @@ public class SessionManager : MonoBehaviour
 
     public bool memoryOrbActivated = true;
 
+    public MemoryOrbManager memoryOrbManager;
+
     void Start()
     {
         firstActionTime = System.DateTime.Now;
@@ -298,41 +300,33 @@ public class SessionManager : MonoBehaviour
         SaveLog("MANIPULATION-END," + GameObjectToString(g));
     }
 
+    /*
+    Memory Orb Log
+    */
 
-    public void ManipulationRotating(GameObject g)
+    private string MOPointersToString()
     {
-        if (!hasStarted)
-        {
-            firstActionTime = System.DateTime.Now;
-            hasStarted = true;
-        }
-        lastActionTime = System.DateTime.Now;
-        SaveLog("MANIPULATION-ROTATING," + GameObjectToString(g));
+        string s = memoryOrbManager.mrtkPointer ? "ON," : "OFF,";
+        return s + memoryOrbManager.currentPointer + ",";
     }
 
-    public void ManipulationScaling(GameObject g)
+    public void MOManipulationStarted(GameObject g)
     {
         if (!hasStarted)
         {
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
-        lastActionTime = System.DateTime.Now;
-        SaveLog("MANIPULATION-SCALING," + GameObjectToString(g));
+        SaveLog("MO-MANIPULATION-START," + MOPointersToString() + GameObjectToString(g));
     }
 
-    public void ManipulationRotating(GameObject g)
+    public void MOManipulationEnded(GameObject g)
     {
-        if (!hasStarted)
-        {
-            firstActionTime = System.DateTime.Now;
-            hasStarted = true;
-        }
         lastActionTime = System.DateTime.Now;
-        SaveLog("ROTATING," + GameObjectToString(g));
+        SaveLog("MO-MANIPULATION-END," + MOPointersToString() + GameObjectToString(g));
     }
 
-    public void ManipulationScaling(GameObject g)
+    public void MOManipulationRotating(GameObject g)
     {
         if (!hasStarted)
         {
@@ -340,6 +334,39 @@ public class SessionManager : MonoBehaviour
             hasStarted = true;
         }
         lastActionTime = System.DateTime.Now;
-        SaveLog("SCALING," + GameObjectToString(g));
+        SaveLog("MO-MANIPULATION-ROTATING," + MOPointersToString() + GameObjectToString(g));
+    }
+
+    public void MOManipulationScaling(GameObject g)
+    {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
+        lastActionTime = System.DateTime.Now;
+        SaveLog("MO-MANIPULATION-SCALING," + MOPointersToString() + GameObjectToString(g));
+    }
+
+    public void MORotating(GameObject g)
+    {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
+        lastActionTime = System.DateTime.Now;
+        SaveLog("MO-ROTATING," + MOPointersToString() + GameObjectToString(g));
+    }
+
+    public void MOScaling(GameObject g)
+    {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
+        lastActionTime = System.DateTime.Now;
+        SaveLog("MO-SCALING," + MOPointersToString() + GameObjectToString(g));
     }    
 }

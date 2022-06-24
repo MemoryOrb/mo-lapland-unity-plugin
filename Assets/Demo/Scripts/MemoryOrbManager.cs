@@ -25,6 +25,9 @@ public class MemoryOrbManager : MonoBehaviour
     public bool memoryOrbActivated = true;
 
     public ReadSerial readSerial;
+
+    public string currentPointer;
+    public bool mrtkPointer;
     
     void Awake()
     {

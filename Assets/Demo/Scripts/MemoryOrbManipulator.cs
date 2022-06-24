@@ -16,17 +16,17 @@ IMixedRealityFocusHandler
 {
     private bool focused = false;
 
-    // MOVING
+    // Manipulating
     [SerializeField]
     private MemoryOrbManager memoryOrbManager;
 
     [SerializeField]
-    private Transform parentWhenMoving;
+    private Transform parentWhenManipulating;
 
     [SerializeField]
     private Transform parentWhenStill;
 
-    private bool moving = false;
+    private bool manipulating = false;
 
     public Transform controller;
 
@@ -64,7 +64,7 @@ IMixedRealityFocusHandler
     void Start()
     {
         target = transform;
-        moving = false;
+        manipulating = false;
         focused = false;
     }
 
@@ -74,6 +74,8 @@ IMixedRealityFocusHandler
             MemoryOrb_OnButtonChangeState;
         memoryOrbManager.GetMemoryOrb().OnRotaryEncoderChangeState +=
             MemoryOrb_OnRotaryEncoderChangeState;
+        memoryOrbManager.GetMemoryOrb().OnPotentiometerChangeState +=
+            MemoryOrb_OnPotentiometerChangeState;
     }
 
     void OnDisable()
@@ -82,6 +84,8 @@ IMixedRealityFocusHandler
             MemoryOrb_OnButtonChangeState;
         memoryOrbManager.GetMemoryOrb().OnRotaryEncoderChangeState -=
             MemoryOrb_OnRotaryEncoderChangeState;
+        memoryOrbManager.GetMemoryOrb().OnPotentiometerChangeState -=
+            MemoryOrb_OnPotentiometerChangeState;
     }
 
     void Update()
@@ -180,22 +184,95 @@ IMixedRealityFocusHandler
 
         if (b == ButtonState.Pressed)
         {
-            if (!moving)
+            if (!manipulating)
             {
-                moving = true;
+                manipulating = true;
                 OnManipulationStarted?.Invoke();
-                this.transform.SetParent(parentWhenMoving);
+                this.transform.SetParent(parentWhenManipulating);
             }
         }
         else
         {
-            if (moving)
+            // if one of the thumb is still pressed, keep manipulating
+            if (
+                memoryOrbManager
+                    .GetMemoryOrb()
+                    .IsButtonPressed(Hand.Left, Finger.Thumb) ||
+                memoryOrbManager
+                    .GetMemoryOrb()
+                    .IsButtonPressed(Hand.Right, Finger.Thumb)
+            )
             {
-                moving = false;
+                return;
+            }
+            
+            if (manipulating)
+            {
+                manipulating = false;
                 OnManipulationEnded?.Invoke();
                 this.transform.SetParent(parentWhenStill);
             }
         }
+    }
+
+    private void MemoryOrb_OnPotentiometerChangeState(Potentiometer p, int value)
+    {
+        Debug.Log(memoryOrbManager.GetMemoryOrb().GetPotentiometerDelta(p));
+        if (manipulating)
+        {
+            // if both thumb are pressed (while manipulating), we take into account potentiometers' values
+            if (
+                memoryOrbManager
+                    .GetMemoryOrb()
+                    .IsButtonPressed(Hand.Left, Finger.Thumb) &&
+                memoryOrbManager
+                    .GetMemoryOrb()
+                    .IsButtonPressed(Hand.Right, Finger.Thumb)
+            )
+            {
+                if (p == Potentiometer.Slide) // use to scale
+                {
+                    Debug.Log(memoryOrbManager.GetMemoryOrb().GetPotentiometerDelta(p));
+                    float scaleStep = memoryOrbManager.GetMemoryOrb().GetPotentiometerDelta(p) * -1f * step;
+                    switch (orientationAxis)
+                    {
+                        case 'x':
+                            transform.localScale =
+                                transform.localScale + Vector3.right * scaleStep;
+                            break;
+                        case 'y':
+                            transform.localScale =
+                                transform.localScale + Vector3.up * scaleStep;
+                            break;
+                        case 'z':
+                            transform.localScale =
+                                transform.localScale +Vector3.forward * scaleStep;
+                            break;
+                    }
+                }
+                else // circular potentiometer, use to rotate 
+                {
+                    float angle = memoryOrbManager.GetMemoryOrb().GetPotentiometerDelta(p)*2f;
+                    if (isOrientationDirectionPositive)
+                    {
+                        angle *= -1f;   
+                    }                    
+                    switch (orientationAxis)
+                    {
+                        case 'x':
+                            transform.Rotate(angle, 0f, 0f);
+                            break;
+                        case 'y':
+                            transform.Rotate(0f, angle, 0f);
+                            break;
+                        case 'z':
+                            transform.Rotate(0f, 0f, angle);
+                            break;
+                    }
+                }
+            }
+        }
+        
     }
 
     private void MemoryOrb_OnRotaryEncoderChangeState(Hand h, Direction d)

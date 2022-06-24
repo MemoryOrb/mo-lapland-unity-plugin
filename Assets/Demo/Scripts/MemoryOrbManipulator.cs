@@ -106,18 +106,9 @@ IMixedRealityFocusHandler
                 float angleZ = Vector3.Angle(controller.right, target.forward);
 
                 orientationAxis = 'z';
-                if (angleZ < 90)
-                {
-                    isOrientationDirectionPositive = false;
-                    zp.SetActive(false);
-                    zn.SetActive(true);
-                }
-                else
-                {
-                    isOrientationDirectionPositive = true;
-                    zp.SetActive(true);
-                    zn.SetActive(false);
-                }
+                zp.SetActive(true);
+                zn.SetActive(true);
+                isOrientationDirectionPositive = angleZ > 90;
             }
             else
             {
@@ -125,18 +116,9 @@ IMixedRealityFocusHandler
                 zn.SetActive(false);
 
                 orientationAxis = 'x';
-                if (angleX < 90)
-                {
-                    isOrientationDirectionPositive = false;
-                    xp.SetActive(false);
-                    xn.SetActive(true);
-                }
-                else
-                {
-                    isOrientationDirectionPositive = true;
-                    xp.SetActive(true);
-                    xn.SetActive(false);
-                }
+                xp.SetActive(true);
+                xn.SetActive(true);
+                isOrientationDirectionPositive = angleX > 90;
             }
         }
         else
@@ -147,18 +129,9 @@ IMixedRealityFocusHandler
             zn.SetActive(false);
 
             orientationAxis = 'y';
-            if (angleY < 90)
-            {
-                isOrientationDirectionPositive = false;
-                yp.SetActive(false);
-                yn.SetActive(true);
-            }
-            else
-            {
-                isOrientationDirectionPositive = true;
-                yp.SetActive(true);
-                yn.SetActive(false);
-            }
+            yp.SetActive(true);
+            yn.SetActive(true);
+            isOrientationDirectionPositive = angleY > 90;
         }
     }
 

@@ -86,108 +86,74 @@ IMixedRealityFocusHandler
 
     void Update()
     {
-        //if (focused == false && isFocusedByMRTK == false)
-        //    return;
-        // not elegant at all, but well, as if it was only that part.. and heh, it is working!
-        float dotY = Vector3.Dot(controller.up, target.up);
-        if (dotY > 0.7f)
+        //Debug.Log(Vector3.Angle(controller.right, target.up));
+        float angleY = Vector3.Angle(controller.right, target.up);
+        if (angleY > 45 && angleY < 135)
         {
-            orientationAxis = 'y';
-            isOrientationDirectionPositive = true;
-            yp.SetActive(true);
-
+            yp.SetActive(false);
             yn.SetActive(false);
+
+            float angleX = Vector3.Angle(controller.right, target.right);
+            if (angleX > 45 && angleX < 135)
+            {
+                xp.SetActive(false);
+                xn.SetActive(false);
+
+                float angleZ = Vector3.Angle(controller.right, target.forward);
+
+                orientationAxis = 'z';
+                if (angleZ < 90)
+                {
+                    isOrientationDirectionPositive = false;
+                    zp.SetActive(false);
+                    zn.SetActive(true);
+                }
+                else
+                {
+                    isOrientationDirectionPositive = true;
+                    zp.SetActive(true);
+                    zn.SetActive(false);
+                }
+            }
+            else
+            {
+                zp.SetActive(false);
+                zn.SetActive(false);
+
+                orientationAxis = 'x';
+                if (angleX < 90)
+                {
+                    isOrientationDirectionPositive = false;
+                    xp.SetActive(false);
+                    xn.SetActive(true);
+                }
+                else
+                {
+                    isOrientationDirectionPositive = true;
+                    xp.SetActive(true);
+                    xn.SetActive(false);
+                }
+            }
+        }
+        else
+        {
             xp.SetActive(false);
             xn.SetActive(false);
             zp.SetActive(false);
             zn.SetActive(false);
-        }
-        else
-        {
-            yp.SetActive(false);
-            if (dotY < -0.7f)
-            {
-                orientationAxis = 'y';
-                isOrientationDirectionPositive = false;
-                yn.SetActive(true);
 
+            orientationAxis = 'y';
+            if (angleY < 90)
+            {
+                isOrientationDirectionPositive = false;
                 yp.SetActive(false);
-                xp.SetActive(false);
-                xn.SetActive(false);
-                zp.SetActive(false);
-                zn.SetActive(false);
+                yn.SetActive(true);
             }
             else
             {
+                isOrientationDirectionPositive = true;
+                yp.SetActive(true);
                 yn.SetActive(false);
-
-                float dotX = Vector3.Dot(controller.right, target.right);
-                if (dotX > 0.7f || dotX < -0.7f)
-                {
-                    xp.SetActive(false);
-                    xn.SetActive(false);
-                }
-                else
-                {
-                    dotX = Vector3.Dot(controller.up, target.right);
-                    if (dotX > 0.7f)
-                    {
-                        orientationAxis = 'x';
-                        isOrientationDirectionPositive = true;
-                        xp.SetActive(true);
-                        zp.SetActive(false);
-                        zn.SetActive(false);
-                    }
-                    else
-                    {
-                        xp.SetActive(false);
-                        if (dotX < -0.7f)
-                        {
-                            orientationAxis = 'x';
-                            isOrientationDirectionPositive = false;
-                            xn.SetActive(true);
-                            zp.SetActive(false);
-                            zn.SetActive(false);
-                        }
-                        else
-                        {
-                            xn.SetActive(false);
-
-                            float dotZ =
-                                Vector3.Dot(controller.forward, target.forward);
-                            if (dotZ > 0.7f || dotZ < -0.7f)
-                            {
-                                // do something
-                            }
-                            else
-                            {
-                                dotZ =
-                                    Vector3.Dot(controller.up, target.forward);
-                                if (dotZ > 0.7f)
-                                {
-                                    orientationAxis = 'z';
-                                    isOrientationDirectionPositive = true;
-                                    zp.SetActive(true);
-                                }
-                                else
-                                {
-                                    zp.SetActive(false);
-                                }
-
-                                if (dotZ < -0.7f)
-                                {
-                                    orientationAxis = 'z';
-                                    isOrientationDirectionPositive = false;
-                                    zn.SetActive(true);
-                                }
-                                else
-                                {
-                                    zn.SetActive(false);
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     }

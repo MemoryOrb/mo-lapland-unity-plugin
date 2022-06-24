@@ -1,67 +1,101 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using MemoryOrbLapland;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using Microsoft.MixedReality.Toolkit.Input;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
-public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IMixedRealityFocusHandler
+public class
+MemoryOrbManipulator
+:
+MonoBehaviour,
+IPointerEnterHandler,
+IPointerExitHandler,
+IMixedRealityFocusHandler
 {
-    public MemoryOrbManager memoryOrbManager;
-    public Transform parentWhenMoving;
-    public Transform parentWhenStill;
-    
+    private bool focused = false;
 
-    private bool isMoving;
-    private bool isFocused;
-    private bool realFocused;
+    // MOVING
+    [SerializeField]
+    private MemoryOrbManager memoryOrbManager;
+
+    [SerializeField]
+    private Transform parentWhenMoving;
+
+    [SerializeField]
+    private Transform parentWhenStill;
+
+    private bool moving = false;
 
     public Transform controller;
+
     private Transform target;
+
     public GameObject memoryOrbHelper;
+
     private bool isFocusedByMRTK;
 
     private char orientationAxis = 'x';
+
     private bool isOrientationDirectionPositive = true;
 
     public GameObject xp;
+
     public GameObject xn;
+
     public GameObject yp;
+
     public GameObject yn;
+
     public GameObject zp;
+
     public GameObject zn;
 
-    [SerializeField] private UnityEvent OnManipulationStarted = new UnityEvent();
-    [SerializeField] private UnityEvent OnManipulationEnded = new UnityEvent();
+    [SerializeField]
+    private float step = 0.01f;
 
-    [SerializeField] private float step = 0.01f;
+    [SerializeField]
+    private UnityEvent OnManipulationStarted = new UnityEvent();
+
+    [SerializeField]
+    private UnityEvent OnManipulationEnded = new UnityEvent();
 
     void Start()
     {
         target = transform;
-        isMoving = false;
-        isFocused = false;
+        moving = false;
+        focused = false;
+    }
 
-        memoryOrbManager.GetMemoryOrb().OnButtonChangeState += MemoryOrb_OnButtonChangeState;
-        memoryOrbManager.GetMemoryOrb().OnRotaryButtonChangeState += MemoryOrb_OnRotaryButtonChangeState;
-        memoryOrbManager.GetMemoryOrb().OnRotaryEncoderChangeState += MemoryOrb_OnRotaryEncoderChangeState;
-        memoryOrbManager.GetMemoryOrb().OnPotentiometerChangeState += MemoryOrb_OnPotentiometerChangeState;
+    void OnEnable()
+    {
+        memoryOrbManager.GetMemoryOrb().OnButtonChangeState +=
+            MemoryOrb_OnButtonChangeState;
+        memoryOrbManager.GetMemoryOrb().OnRotaryEncoderChangeState +=
+            MemoryOrb_OnRotaryEncoderChangeState;
+    }
+
+    void OnDisable()
+    {
+        memoryOrbManager.GetMemoryOrb().OnButtonChangeState -=
+            MemoryOrb_OnButtonChangeState;
+        memoryOrbManager.GetMemoryOrb().OnRotaryEncoderChangeState -=
+            MemoryOrb_OnRotaryEncoderChangeState;
     }
 
     void Update()
     {
-        if (isFocused == false && isFocusedByMRTK == false)
-            return;
+        //if (focused == false && isFocusedByMRTK == false)
+        //    return;
         // not elegant at all, but well, as if it was only that part.. and heh, it is working!
         float dotY = Vector3.Dot(controller.up, target.up);
-        //orientationAxis = 'a';
         if (dotY > 0.7f)
         {
             orientationAxis = 'y';
             isOrientationDirectionPositive = true;
             yp.SetActive(true);
-    
+
             yn.SetActive(false);
             xp.SetActive(false);
             xn.SetActive(false);
@@ -76,7 +110,7 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
                 orientationAxis = 'y';
                 isOrientationDirectionPositive = false;
                 yn.SetActive(true);
-    
+
                 yp.SetActive(false);
                 xp.SetActive(false);
                 xn.SetActive(false);
@@ -86,7 +120,7 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
             else
             {
                 yn.SetActive(false);
-    
+
                 float dotX = Vector3.Dot(controller.right, target.right);
                 if (dotX > 0.7f || dotX < -0.7f)
                 {
@@ -118,15 +152,17 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
                         else
                         {
                             xn.SetActive(false);
-                            
-                            float dotZ = Vector3.Dot(controller.forward, target.forward);
+
+                            float dotZ =
+                                Vector3.Dot(controller.forward, target.forward);
                             if (dotZ > 0.7f || dotZ < -0.7f)
                             {
-                                // do something   
+                                // do something
                             }
                             else
                             {
-                                dotZ = Vector3.Dot(controller.up, target.forward);
+                                dotZ =
+                                    Vector3.Dot(controller.up, target.forward);
                                 if (dotZ > 0.7f)
                                 {
                                     orientationAxis = 'z';
@@ -137,7 +173,7 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
                                 {
                                     zp.SetActive(false);
                                 }
-    
+
                                 if (dotZ < -0.7f)
                                 {
                                     orientationAxis = 'z';
@@ -150,81 +186,64 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
                                 }
                             }
                         }
-                    }    
-                }  
-           }
+                    }
+                }
+            }
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Debug.Log(eventData.enterEventCamera.gameObject.name + " enter");
-        realFocused = true;
-        if (!isMoving)
-        {
-            PointerEnter();
-        }
+        focused = true;
+
+        memoryOrbHelper.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Debug.Log("exit");
-        realFocused = false;
-        if (!isMoving)
-        {
-            PointerExit();
-        }
-    }
+        focused = false;
 
-    private void PointerEnter()
-    {
-        memoryOrbHelper.SetActive(true);
-        isFocused = true;
-    }
-
-    private void PointerExit()
-    {
-        if (isFocusedByMRTK == false)
-            memoryOrbHelper.SetActive(false);
-        isFocused = false;
+        if (isFocusedByMRTK == false) memoryOrbHelper.SetActive(false);
     }
 
     private void MemoryOrb_OnButtonChangeState(Hand h, Finger f, ButtonState b)
     {
-        if (f != Finger.Thumb)
-            return;
+        if (f != Finger.Thumb) return;
 
-        if (!isFocused)
-            return;
+        if (!focused) return;
 
-        if (!isMoving)
+        if (b == ButtonState.Pressed)
         {
-            isMoving = true;
-            OnManipulationStarted?.Invoke();
-            this.transform.SetParent(parentWhenMoving);
+            if (!moving)
+            {
+                moving = true;
+                OnManipulationStarted?.Invoke();
+                this.transform.SetParent(parentWhenMoving);
+            }
         }
         else
         {
-            isMoving = false;
-            OnManipulationEnded?.Invoke();
-            this.transform.SetParent(parentWhenStill);
-            if (!realFocused) // should very rarely happen
-                PointerExit();
+            if (moving)
+            {
+                moving = false;
+                OnManipulationEnded?.Invoke();
+                this.transform.SetParent(parentWhenStill);
+            }
         }
-    }
-
-    private void MemoryOrb_OnRotaryButtonChangeState(Hand h, ButtonState b)
-    {
-        if (!isFocused)
-            return;
     }
 
     private void MemoryOrb_OnRotaryEncoderChangeState(Hand h, Direction d)
     {
-        if (isFocused == false && isFocusedByMRTK == false)
-            return;
-        
-        if (memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Left, Finger.Index) || memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Right, Finger.Index))
+        if (focused == false && isFocusedByMRTK == false) return;
+
+        if (
+            memoryOrbManager
+                .GetMemoryOrb()
+                .IsButtonPressed(Hand.Left, Finger.Index) ||
+            memoryOrbManager
+                .GetMemoryOrb()
+                .IsButtonPressed(Hand.Right, Finger.Index)
+        )
         {
             float angle = 1f;
             if (h == Hand.Left)
@@ -233,7 +252,8 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
                     angle = d == Direction.Clockwise ? 1f : -1f;
                 else
                     angle = d == Direction.Clockwise ? -1f : 1f;
-            } else // right
+            } // right
+            else
             {
                 if (isOrientationDirectionPositive)
                     angle = d == Direction.Clockwise ? -1f : 1f;
@@ -243,150 +263,119 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
             switch (orientationAxis)
             {
                 case 'x':
-                transform.Rotate(angle, 0f, 0f);
-                break;
+                    transform.Rotate(angle, 0f, 0f);
+                    break;
                 case 'y':
-                transform.Rotate(0f, angle, 0f);
-                break;
+                    transform.Rotate(0f, angle, 0f);
+                    break;
                 case 'z':
-                transform.Rotate(0f, 0f, angle);
-                break;
+                    transform.Rotate(0f, 0f, angle);
+                    break;
                 default:
-                break;
-            }   
+                    break;
+            }
         }
 
-        //if (memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Left, Finger.Little) || memoryOrbManager.GetMemoryOrb().IsButtonPressed(Hand.Right, Finger.Little))
+        if (
+            memoryOrbManager
+                .GetMemoryOrb()
+                .IsButtonPressed(Hand.Left, Finger.Little) ||
+            memoryOrbManager
+                .GetMemoryOrb()
+                .IsButtonPressed(Hand.Right, Finger.Little)
+        )
         {
             // left - clockwise = move X up / 2, scale X down
             // left - anti = move X down / 2, scale X up
-            // right - clockwise = move X down / 2, scale X down, 
+            // right - clockwise = move X down / 2, scale X down,
             // right - anti = move X up / 2, scale X up
-
             float signedScaleStep;
             float signedPositionStep;
-            if (d == Direction.Clockwise)
+
+            if (isOrientationDirectionPositive)
             {
-                if (isOrientationDirectionPositive) 
+                if (h == Hand.Left)
                 {
-                    signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
-                    signedScaleStep = step * -1f;
-                }
-                else 
+                    if (d == Direction.Clockwise)
+                    {
+                        signedPositionStep = step * -1f / 2f;
+                        signedScaleStep = step * -1f;
+                    }
+                    else
+                    {
+                        signedPositionStep = step / 2f;
+                        signedScaleStep = step;
+                    }
+                } // right hand
+                else
                 {
-                    signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
-                    signedScaleStep = step;
+                    if (d == Direction.Clockwise)
+                    {
+                        signedPositionStep = step / 2f;
+                        signedScaleStep = step * -1f;
+                    }
+                    else
+                    {
+                        signedPositionStep = step * -1f / 2f;
+                        signedScaleStep = step * 1f;
+                    }
                 }
-            } else
+            }
+            else
             {
-                if (isOrientationDirectionPositive) 
+                if (h == Hand.Right)
                 {
-                    signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
-                    signedScaleStep = step;
-                }
-                else 
+                    if (d == Direction.Clockwise)
+                    {
+                        signedPositionStep = step * -1f / 2f;
+                        signedScaleStep = step * -1f;
+                    }
+                    else
+                    {
+                        signedPositionStep = step / 2f;
+                        signedScaleStep = step;
+                    }
+                } // left hand
+                else
                 {
-                    signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
-                    signedScaleStep = step * -1f;
+                    if (d == Direction.Clockwise)
+                    {
+                        signedPositionStep = step / 2f;
+                        signedScaleStep = step * -1f;
+                    }
+                    else
+                    {
+                        signedPositionStep = step * -1f / 2f;
+                        signedScaleStep = step * 1f;
+                    }
                 }
             }
 
             switch (orientationAxis)
             {
                 case 'x':
-                transform.localPosition = new Vector3(
-                    transform.localPosition.x + signedPositionStep,
-                    transform.localPosition.y,
-                    transform.localPosition.z
-                );
-                transform.localScale = new Vector3(
-                    transform.localScale.x + signedScaleStep, 
-                    transform.localScale.y, 
-                    transform.localScale.z
-                );
-                break;
+                    transform.position =
+                        transform.position +
+                        transform.right * signedPositionStep;
+                    transform.localScale =
+                        transform.localScale + Vector3.right * signedScaleStep;
+                    break;
                 case 'y':
-                if (d == Direction.Clockwise)
-                {
-                    if (isOrientationDirectionPositive) 
-                    {
-                        signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
-                        signedScaleStep = step * -1f;
-                    }
-                    else
-                    {
-                        signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
-                        signedScaleStep = step;
-                    }
-                } else
-                {
-                    if (isOrientationDirectionPositive) 
-                    {
-                        signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
-                        signedScaleStep = step;
-                    }
-                    else 
-                    {
-                        signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
-                        signedScaleStep = step * -1f;
-                    }
-                }
-                transform.localPosition = new Vector3(
-                    transform.localPosition.x,
-                    transform.localPosition.y + signedPositionStep,
-                    transform.localPosition.z
-                );
-                transform.localScale = new Vector3(
-                    transform.localScale.x, 
-                    transform.localScale.y + signedScaleStep, 
-                    transform.localScale.z
-                );
-                break;
+                    transform.position =
+                        transform.position + transform.up * signedPositionStep;
+                    transform.localScale =
+                        transform.localScale + Vector3.up * signedScaleStep;
+                    break;
                 case 'z':
-                if (d == Direction.Clockwise)
-                {
-                    if (isOrientationDirectionPositive) 
-                    {
-                        signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
-                        signedScaleStep = step * -1f;
-                    }
-                    else 
-                    {
-                        signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
-                        signedScaleStep = step;
-                    }
-                } else
-                {
-                    if (isOrientationDirectionPositive) 
-                    {
-                        signedPositionStep = step * (h == Hand.Left ? 1f : -1f) / 2f;
-                        signedScaleStep = step;
-                    }
-                    else 
-                    {
-                        signedPositionStep = step * (h == Hand.Left ? -1f : 1f) / 2f;
-                        signedScaleStep = step * -1f;
-                    }
-                }
-                transform.localPosition = new Vector3(
-                    transform.localPosition.x,
-                    transform.localPosition.y,
-                    transform.localPosition.z + signedPositionStep
-                );
-                transform.localScale = new Vector3(
-                    transform.localScale.x, 
-                    transform.localScale.y, 
-                    transform.localScale.z + signedScaleStep
-                );
-                break;
+                    transform.position =
+                        transform.position +
+                        transform.forward * signedPositionStep;
+                    transform.localScale =
+                        transform.localScale +
+                        Vector3.forward * signedScaleStep;
+                    break;
             }
         }
-    }
-
-    private void MemoryOrb_OnPotentiometerChangeState(Potentiometer p, int value)
-    {
-        if (!isFocused)
-            return;
     }
 
     void IMixedRealityFocusHandler.OnFocusEnter(FocusEventData eventData)
@@ -397,8 +386,7 @@ public class MemoryOrbManipulator : MonoBehaviour, IPointerEnterHandler, IPointe
 
     void IMixedRealityFocusHandler.OnFocusExit(FocusEventData eventData)
     {
-        if (isFocused == false)
-            memoryOrbHelper.SetActive(false);
+        if (focused == false) memoryOrbHelper.SetActive(false);
         isFocusedByMRTK = false;
     }
 }

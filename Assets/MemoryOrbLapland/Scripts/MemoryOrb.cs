@@ -69,6 +69,17 @@ namespace MemoryOrbLapland
             potentiometerDelta = new int[2] { -1, -1 };
         }
 
+        public bool IsAnyButtonPressed()
+        {
+            foreach (bool b in isButtonPressed[0])
+                if (b)
+                    return true;
+            foreach (bool b in isButtonPressed[1])
+                if (b)
+                    return true;
+            return false;
+        }
+
         public bool IsButtonPressed(Hand h, Finger f)
         {
             return isButtonPressed[(int) h][(int) f];

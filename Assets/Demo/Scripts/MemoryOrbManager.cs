@@ -85,7 +85,7 @@ public class MemoryOrbManager : MonoBehaviour
             buttonsRightRenderer[(int) f].material.SetColor("_Color", b == ButtonState.Pressed ? Color.cyan : Color.black);   
         }
 
-        Material m = b == ButtonState.Pressed ? transparentBodyMaterial : opaqueBodyMaterial;
+        Material m = memoryOrb.IsAnyButtonPressed() ? transparentBodyMaterial : opaqueBodyMaterial;
         foreach (Renderer r in bodyRenderer)
         {
             r.material = m;

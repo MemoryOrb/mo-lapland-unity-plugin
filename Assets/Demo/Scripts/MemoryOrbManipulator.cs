@@ -190,7 +190,6 @@ IMixedRealityFocusHandler
 
     private void MemoryOrb_OnPotentiometerChangeState(Potentiometer p, int value)
     {
-        Debug.Log(memoryOrbManager.GetMemoryOrb().GetPotentiometerDelta(p));
         if (manipulating)
         {
             // if both thumb are pressed (while manipulating), we take into account potentiometers' values

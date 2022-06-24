@@ -241,7 +241,6 @@ public class SessionManager : MonoBehaviour
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
-        lastActionTime = System.DateTime.Now;
         SaveLog("TRANSLATE-START," + GameObjectToString(g));
     }
 
@@ -258,7 +257,6 @@ public class SessionManager : MonoBehaviour
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
-        lastActionTime = System.DateTime.Now;
         SaveLog("ROTATE-START," + GameObjectToString(g));
     }
 
@@ -275,7 +273,6 @@ public class SessionManager : MonoBehaviour
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
-        lastActionTime = System.DateTime.Now;
         SaveLog("SCALE-START," + GameObjectToString(g));
     }
 
@@ -292,7 +289,6 @@ public class SessionManager : MonoBehaviour
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
-        lastActionTime = System.DateTime.Now;
         SaveLog("MANIPULATION-START," + GameObjectToString(g));
     }
 
@@ -301,4 +297,49 @@ public class SessionManager : MonoBehaviour
         lastActionTime = System.DateTime.Now;
         SaveLog("MANIPULATION-END," + GameObjectToString(g));
     }
+
+
+    public void ManipulationRotating(GameObject g)
+    {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
+        lastActionTime = System.DateTime.Now;
+        SaveLog("MANIPULATION-ROTATING," + GameObjectToString(g));
+    }
+
+    public void ManipulationScaling(GameObject g)
+    {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
+        lastActionTime = System.DateTime.Now;
+        SaveLog("MANIPULATION-SCALING," + GameObjectToString(g));
+    }
+
+    public void ManipulationRotating(GameObject g)
+    {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
+        lastActionTime = System.DateTime.Now;
+        SaveLog("ROTATING," + GameObjectToString(g));
+    }
+
+    public void ManipulationScaling(GameObject g)
+    {
+        if (!hasStarted)
+        {
+            firstActionTime = System.DateTime.Now;
+            hasStarted = true;
+        }
+        lastActionTime = System.DateTime.Now;
+        SaveLog("SCALING," + GameObjectToString(g));
+    }    
 }

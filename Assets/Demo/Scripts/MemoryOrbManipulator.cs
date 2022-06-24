@@ -70,6 +70,12 @@ IMixedRealityFocusHandler
     [SerializeField]
     private UnityEvent OnManipulationEnded = new UnityEvent();
 
+    [SerializeField]
+    private UnityEvent OnRotating = new UnityEvent();
+
+    [SerializeField]
+    private UnityEvent OnScaling = new UnityEvent();
+
     void Start()
     {
         target = transform;
@@ -255,6 +261,7 @@ IMixedRealityFocusHandler
                                 Vector3.forward * scaleStep;
                             break;
                     }
+                    OnScaling?.Invoke();
                 } // circular potentiometer, use to rotate
                 else
                 {
@@ -281,6 +288,7 @@ IMixedRealityFocusHandler
                             transform.Rotate(0f, 0f, angle);
                             break;
                     }
+                    OnRotating?.Invoke();
                 }
             }
         }
@@ -332,6 +340,7 @@ IMixedRealityFocusHandler
                 default:
                     break;
             }
+            OnRotating?.Invoke();
         }
 
         // if one of the little finger is pressed
@@ -433,6 +442,7 @@ IMixedRealityFocusHandler
                         Vector3.forward * signedScaleStep;
                     break;
             }
+            OnScaling?.Invoke();
         }
     }
 

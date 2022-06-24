@@ -1405,6 +1405,9 @@ MonoBehaviour:
   yn: {fileID: 958975687}
   zp: {fileID: 848446476}
   zn: {fileID: 1752115538}
+  moveConstraint: 1
+  scaleConstraint: 1
+  rotateConstraint: 0
   step: 0.01
   OnManipulationStarted:
     m_PersistentCalls:
@@ -1940,6 +1943,9 @@ MonoBehaviour:
   yn: {fileID: 1502942542}
   zp: {fileID: 1502942541}
   zn: {fileID: 1502942539}
+  moveConstraint: 0
+  scaleConstraint: 1
+  rotateConstraint: 1
   step: 0.01
   OnManipulationStarted:
     m_PersistentCalls:
@@ -4876,6 +4882,9 @@ MonoBehaviour:
   yn: {fileID: 1592857863}
   zp: {fileID: 416832308}
   zn: {fileID: 565403979}
+  moveConstraint: 0
+  scaleConstraint: 0
+  rotateConstraint: 0
   step: 0.01
   OnManipulationStarted:
     m_PersistentCalls:
@@ -5536,7 +5545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1872738090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 1, z: -0.33}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6022,6 +6031,9 @@ MonoBehaviour:
   yn: {fileID: 1427597268}
   zp: {fileID: 276537863}
   zn: {fileID: 2113576009}
+  moveConstraint: 1
+  scaleConstraint: 0
+  rotateConstraint: 1
   step: 0.01
   OnManipulationStarted:
     m_PersistentCalls:

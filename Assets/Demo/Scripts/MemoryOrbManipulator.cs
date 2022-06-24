@@ -53,6 +53,15 @@ IMixedRealityFocusHandler
     public GameObject zn;
 
     [SerializeField]
+    private bool moveConstraint = false;
+
+    [SerializeField]
+    private bool scaleConstraint = false;
+
+    [SerializeField]
+    private bool rotateConstraint = false;
+
+    [SerializeField]
     private float step = 0.01f;
 
     [SerializeField]
@@ -133,6 +142,17 @@ IMixedRealityFocusHandler
             yn.SetActive(true);
             isOrientationDirectionPositive = angleY > 90;
         }
+
+        if (rotateConstraint)
+        {
+            transform.eulerAngles = Vector3.zero;
+        }
+
+        if (moveConstraint)
+        {
+            // very specific to this scenario
+            transform.position = Vector3.up;
+        }       
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -153,18 +173,20 @@ IMixedRealityFocusHandler
     {
         if (f != Finger.Thumb) return;
 
-        if (!focused) return;
-
-        if (b == ButtonState.Pressed)
+        if (focused) 
         {
-            if (!manipulating)
+            if (b == ButtonState.Pressed)
             {
-                manipulating = true;
-                OnManipulationStarted?.Invoke();
-                this.transform.SetParent(parentWhenManipulating);
+                if (!manipulating)
+                {
+                    manipulating = true;
+                    OnManipulationStarted?.Invoke();
+                    this.transform.SetParent(parentWhenManipulating);
+                }
             }
         }
-        else
+
+        if (b == ButtonState.Released)
         {
             // if one of the thumb is still pressed, keep manipulating
             if (
@@ -178,7 +200,7 @@ IMixedRealityFocusHandler
             {
                 return;
             }
-            
+
             if (manipulating)
             {
                 manipulating = false;
@@ -188,7 +210,10 @@ IMixedRealityFocusHandler
         }
     }
 
-    private void MemoryOrb_OnPotentiometerChangeState(Potentiometer p, int value)
+    private void MemoryOrb_OnPotentiometerChangeState(
+        Potentiometer p,
+        int value
+    )
     {
         if (manipulating)
         {
@@ -202,15 +227,23 @@ IMixedRealityFocusHandler
                     .IsButtonPressed(Hand.Right, Finger.Thumb)
             )
             {
-                if (p == Potentiometer.Slide) // use to scale
+                if (
+                    p == Potentiometer.Slide // use to scale
+                )
                 {
-                    Debug.Log(memoryOrbManager.GetMemoryOrb().GetPotentiometerDelta(p));
-                    float scaleStep = memoryOrbManager.GetMemoryOrb().GetPotentiometerDelta(p) * -1f * step;
+                    if (scaleConstraint)
+                        return;
+
+                    float scaleStep =
+                        memoryOrbManager
+                            .GetMemoryOrb()
+                            .GetPotentiometerDelta(p) * -1f *step;
                     switch (orientationAxis)
                     {
                         case 'x':
                             transform.localScale =
-                                transform.localScale + Vector3.right * scaleStep;
+                                transform.localScale +
+                                Vector3.right * scaleStep;
                             break;
                         case 'y':
                             transform.localScale =
@@ -218,17 +251,24 @@ IMixedRealityFocusHandler
                             break;
                         case 'z':
                             transform.localScale =
-                                transform.localScale +Vector3.forward * scaleStep;
+                                transform.localScale +
+                                Vector3.forward * scaleStep;
                             break;
                     }
-                }
-                else // circular potentiometer, use to rotate 
+                } // circular potentiometer, use to rotate
+                else
                 {
-                    float angle = memoryOrbManager.GetMemoryOrb().GetPotentiometerDelta(p)*2f;
+                    if (rotateConstraint)
+                        return;
+
+                    float angle =
+                        memoryOrbManager
+                            .GetMemoryOrb()
+                            .GetPotentiometerDelta(p) * 2f;
                     if (isOrientationDirectionPositive)
                     {
-                        angle *= -1f;   
-                    }                    
+                        angle *= -1f;
+                    }
                     switch (orientationAxis)
                     {
                         case 'x':
@@ -244,13 +284,13 @@ IMixedRealityFocusHandler
                 }
             }
         }
-        
     }
 
     private void MemoryOrb_OnRotaryEncoderChangeState(Hand h, Direction d)
     {
         if (focused == false && isFocusedByMRTK == false) return;
 
+        // if one of the index finger is pressed, then rotate
         if (
             memoryOrbManager
                 .GetMemoryOrb()
@@ -260,6 +300,9 @@ IMixedRealityFocusHandler
                 .IsButtonPressed(Hand.Right, Finger.Index)
         )
         {
+            if (rotateConstraint)
+                return;
+
             float angle = 1f;
             if (h == Hand.Left)
             {
@@ -291,6 +334,7 @@ IMixedRealityFocusHandler
             }
         }
 
+        // if one of the little finger is pressed
         if (
             memoryOrbManager
                 .GetMemoryOrb()
@@ -300,10 +344,9 @@ IMixedRealityFocusHandler
                 .IsButtonPressed(Hand.Right, Finger.Little)
         )
         {
-            // left - clockwise = move X up / 2, scale X down
-            // left - anti = move X down / 2, scale X up
-            // right - clockwise = move X down / 2, scale X down,
-            // right - anti = move X up / 2, scale X up
+            if (scaleConstraint)
+                return;
+
             float signedScaleStep;
             float signedPositionStep;
 

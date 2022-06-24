@@ -1413,19 +1413,67 @@ MonoBehaviour:
   step: 0.01
   OnManipulationStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationStarted
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 450242557}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnManipulationEnded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationEnded
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 450242557}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnManipulationRotating:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationRotating
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 450242557}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnManipulationScaling:
     m_PersistentCalls:
       m_Calls: []
   OnRotating:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MORotating
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 450242557}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnScaling:
     m_PersistentCalls:
       m_Calls: []
@@ -1966,7 +2014,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1725130421}
         m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
-        m_MethodName: ManipulationStarted
+        m_MethodName: MOManipulationStarted
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 653147867}
@@ -1981,7 +2029,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1725130421}
         m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
-        m_MethodName: ManipulationEnded
+        m_MethodName: MOManipulationEnded
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 653147867}
@@ -4914,22 +4962,94 @@ MonoBehaviour:
   step: 0.01
   OnManipulationStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationStarted
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1617078993}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnManipulationEnded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationEnded
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1617078993}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnManipulationRotating:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationRotating
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1617078993}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnManipulationScaling:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationScaling
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1617078993}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnRotating:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MORotating
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1617078993}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnScaling:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOScaling
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1617078993}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!23 &1626190298 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4854875015936881942, guid: 834e526f9df6f499393594cbe1655005, type: 3}
@@ -5174,7 +5294,7 @@ MonoBehaviour:
   numberOfTraining: 2
   numberOfCompeting: 3
   memoryOrbActivated: 1
-  memoryOrbManager: {fileID: 0}
+  memoryOrbManager: {fileID: 313709788}
 --- !u!4 &1725130422
 Transform:
   m_ObjectHideFlags: 0
@@ -6076,22 +6196,70 @@ MonoBehaviour:
   step: 0.01
   OnManipulationStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationStarted
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1895409708}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnManipulationEnded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationEnded
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1895409708}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnManipulationRotating:
     m_PersistentCalls:
       m_Calls: []
   OnManipulationScaling:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOManipulationScaling
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1895409708}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnRotating:
     m_PersistentCalls:
       m_Calls: []
   OnScaling:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725130421}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MOScaling
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1895409708}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1908446934
 PrefabInstance:
   m_ObjectHideFlags: 0

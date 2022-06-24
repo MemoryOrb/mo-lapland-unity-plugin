@@ -241,6 +241,7 @@ public class SessionManager : MonoBehaviour
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
+        lastActionTime = System.DateTime.Now;
         SaveLog("TRANSLATE-START," + GameObjectToString(g));
     }
 
@@ -257,6 +258,7 @@ public class SessionManager : MonoBehaviour
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
+        lastActionTime = System.DateTime.Now;
         SaveLog("ROTATE-START," + GameObjectToString(g));
     }
 
@@ -273,6 +275,7 @@ public class SessionManager : MonoBehaviour
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
+        lastActionTime = System.DateTime.Now;
         SaveLog("SCALE-START," + GameObjectToString(g));
     }
 
@@ -289,6 +292,7 @@ public class SessionManager : MonoBehaviour
             firstActionTime = System.DateTime.Now;
             hasStarted = true;
         }
+        lastActionTime = System.DateTime.Now;
         SaveLog("MANIPULATION-START," + GameObjectToString(g));
     }
 

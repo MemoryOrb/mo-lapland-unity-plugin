@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using MemoryOrbLapland;
+using Microsoft.MixedReality.Toolkit.Input;
 
-public class MemoryOrbButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MemoryOrbButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IMixedRealityFocusHandler
 {
     [SerializeField] private MemoryOrbManager memoryOrbManager;
     [SerializeField] private UnityEvent OnClick = new UnityEvent();
 
     private bool focused = false;
+    private bool focusedByMRTK = false;
 
     void OnEnable()
     {
@@ -33,11 +35,24 @@ public class MemoryOrbButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         focused = false;
     }
 
+    void IMixedRealityFocusHandler.OnFocusEnter(FocusEventData eventData)
+    {
+        focusedByMRTK = true;
+    }
+
+    void IMixedRealityFocusHandler.OnFocusExit(FocusEventData eventData)
+    {
+        focusedByMRTK = false;
+    }
+
     private void MemoryOrb_OnRotaryButtonChangeState(Hand h, ButtonState b)
     {
-        if (focused && b == ButtonState.Pressed)
+        if (focused || focusedByMRTK)
         {
-            OnClick?.Invoke();
+            if (b == ButtonState.Pressed)
+            {
+                OnClick?.Invoke();
+            }
         }
     }
 }

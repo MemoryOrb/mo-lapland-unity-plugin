@@ -112,7 +112,7 @@ public class SessionManager : MonoBehaviour
         hasStarted = false;
         SaveLog(string.Format("VALIDATE,{0},{1},{2},{3},{4}", 
             GameObjectToString(sessionCakes[sessionId]), 
-            TransformToString(targetCake), 
+            TransformToString(targetCake),
             DifferenceTransformToString(targetCake, sessionCakes[sessionId].transform),
             (lastActionTime - firstActionTime).TotalMilliseconds,
             (System.DateTime.Now - firstActionTime).TotalMilliseconds
@@ -134,6 +134,7 @@ public class SessionManager : MonoBehaviour
             textNumber.text = trialId + "/" + numberOfCompeting;
             if (trialId >= numberOfCompeting)
             {
+                ClearCake();
                 buttonNextSession.SetActive(true);
                 buttonValidate.SetActive(false);
             }

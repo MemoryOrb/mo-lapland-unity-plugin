@@ -4225,6 +4225,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 653147868}
     m_Modifications:
+    - target: {fileID: 3519660802169363942, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7716bf5c99b5ac04ca13858c3f5389ea, type: 2}
+    - target: {fileID: 3519660802973121459, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7716bf5c99b5ac04ca13858c3f5389ea, type: 2}
+    - target: {fileID: 3519660803093489565, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7716bf5c99b5ac04ca13858c3f5389ea, type: 2}
+    - target: {fileID: 3519660803273954265, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7716bf5c99b5ac04ca13858c3f5389ea, type: 2}
+    - target: {fileID: 3519660803513669198, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7716bf5c99b5ac04ca13858c3f5389ea, type: 2}
     - target: {fileID: 3519660803812448903, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
       propertyPath: m_Name
       value: MemoryOrbHelper
@@ -4273,6 +4293,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3519660803882999595, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7716bf5c99b5ac04ca13858c3f5389ea, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a69cacbacf130d40a90779e23ed3a89, type: 3}
 --- !u!1 &1502942539 stripped
@@ -5317,7 +5341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654372720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.702, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.2, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:

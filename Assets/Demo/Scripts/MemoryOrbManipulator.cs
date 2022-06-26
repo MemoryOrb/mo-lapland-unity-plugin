@@ -308,6 +308,12 @@ IMixedRealityFocusHandler
         if (
             memoryOrbManager
                 .GetMemoryOrb()
+                .IsButtonPressed(Hand.Left, Finger.Middle) ||
+            memoryOrbManager
+                .GetMemoryOrb()
+                .IsButtonPressed(Hand.Right, Finger.Middle) ||
+            memoryOrbManager
+                .GetMemoryOrb()
                 .IsButtonPressed(Hand.Left, Finger.Index) ||
             memoryOrbManager
                 .GetMemoryOrb()
@@ -351,6 +357,12 @@ IMixedRealityFocusHandler
 
         // if one of the little finger is pressed
         if (
+            memoryOrbManager
+                .GetMemoryOrb()
+                .IsButtonPressed(Hand.Left, Finger.Ring) ||
+            memoryOrbManager
+                .GetMemoryOrb()
+                .IsButtonPressed(Hand.Right, Finger.Ring) ||
             memoryOrbManager
                 .GetMemoryOrb()
                 .IsButtonPressed(Hand.Left, Finger.Little) ||

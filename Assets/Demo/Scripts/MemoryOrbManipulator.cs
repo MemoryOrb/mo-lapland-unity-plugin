@@ -227,7 +227,7 @@ IMixedRealityFocusHandler
         int value
     )
     {
-        if (manipulating)
+        if (focused == true || isFocusedByMRTK == true)
         {
             // if both thumb are pressed (while manipulating), we take into account potentiometers' values
             if (

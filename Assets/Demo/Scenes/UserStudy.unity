@@ -3819,7 +3819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackingType: 0
-  m_UpdateType: 2
+  m_UpdateType: 0
   m_PositionInput:
     m_UseReference: 1
     m_Action:
@@ -5435,8 +5435,8 @@ MonoBehaviour:
   - {fileID: 1895409708}
   - {fileID: 1617078993}
   targetCake: {fileID: 1654372721}
-  numberOfTraining: 3
-  numberOfCompeting: 10
+  numberOfTraining: 1
+  numberOfCompeting: 2
   memoryOrbActivated: 1
   memoryOrbManager: {fileID: 313709788}
 --- !u!4 &1725130422

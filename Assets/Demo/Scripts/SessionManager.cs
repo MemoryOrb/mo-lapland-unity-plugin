@@ -183,17 +183,17 @@ public class SessionManager : MonoBehaviour
 
     private void MoveTarget()
     {
-        targetCake.localPosition = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+        targetCake.localPosition = new Vector3((Random.Range(-50, 51)/100f), (Random.Range(-50, 51)/100f), (Random.Range(-50, 51)/100f));
     }
 
     private void RotateTarget()
     {
-        targetCake.localRotation = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+        targetCake.localRotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
     }
 
     private void ScaleTarget()
     {
-        targetCake.localScale = new Vector3(Random.Range(0.25f, 0.75f), Random.Range(0.10f, 0.30f), Random.Range(0.25f, 0.75f));
+        targetCake.localScale = new Vector3((Random.Range(25, 76)/100f), (Random.Range(10, 31)/100f), (Random.Range(25, 76)/100f));
     }
 
 
@@ -211,9 +211,9 @@ public class SessionManager : MonoBehaviour
         return  t.localPosition.x + "," + 
                 t.localPosition.y + "," + 
                 t.localPosition.z + "," + 
-                t.localRotation.x + "," + 
-                t.localRotation.y + "," + 
-                t.localRotation.z + "," +
+                t.localEulerAngles.x + "," + 
+                t.localEulerAngles.y + "," + 
+                t.localEulerAngles.z + "," +
                 t.localScale.x + "," +
                 t.localScale.y + "," +
                 t.localScale.z;
@@ -224,9 +224,9 @@ public class SessionManager : MonoBehaviour
         return  (t1.localPosition.x - t2.localPosition.x) + "," +
                 (t1.localPosition.y - t2.localPosition.y) + "," +
                 (t1.localPosition.z - t2.localPosition.z) + "," +
-                Mathf.DeltaAngle(t1.localRotation.x, t2.localRotation.x) + "," +
-                Mathf.DeltaAngle(t1.localRotation.x, t2.localRotation.x) + "," +
-                Mathf.DeltaAngle(t1.localRotation.x, t2.localRotation.x) + "," +
+                Mathf.DeltaAngle(t1.localEulerAngles.x, t2.localEulerAngles.x) + "," +
+                Mathf.DeltaAngle(t1.localEulerAngles.x, t2.localEulerAngles.x) + "," +
+                Mathf.DeltaAngle(t1.localEulerAngles.x, t2.localEulerAngles.x) + "," +
                 (t1.localScale.x - t2.localScale.x) + "," +
                 (t1.localScale.y - t2.localScale.y) + "," +
                 (t1.localScale.z - t2.localScale.z);       

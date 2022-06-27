@@ -61,7 +61,8 @@ public class SessionManager : MonoBehaviour
                 m.enabled = true;
             }
         }
-        else {
+        else 
+        {
             tracker.SetActive(false);
         }
 

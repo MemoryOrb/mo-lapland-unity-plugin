@@ -33,9 +33,10 @@ public class SessionManager : MonoBehaviour
     private System.DateTime lastActionTime;
     private bool hasStarted = false;
 
-    public bool memoryOrbActivated = true;
-
     public MemoryOrbManager memoryOrbManager;
+    public GameObject tracker;
+
+    public bool memoryOrbActivated = true;
 
     void Awake()
     {
@@ -60,6 +61,10 @@ public class SessionManager : MonoBehaviour
                 m.enabled = true;
             }
         }
+        else {
+            tracker.SetActive(false);
+        }
+
         NextSession();
     }
 

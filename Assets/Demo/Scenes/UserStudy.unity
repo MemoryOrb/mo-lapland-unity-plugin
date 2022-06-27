@@ -817,7 +817,7 @@ MonoBehaviour:
   - {fileID: 1517532345}
   transparentBodyMaterial: {fileID: 2100000, guid: f78642bba9df7b744b3a8c8a96b604d5, type: 2}
   opaqueBodyMaterial: {fileID: -6303317554026140419, guid: 0ac6ddfba6e63430a9f745b9bf921b8d, type: 3}
-  memoryOrbActivated: 1
+  memoryOrbActivated: 0
   readSerial: {fileID: 1530979069}
   currentPointer: 
   mrtkPointer: 0
@@ -5459,9 +5459,9 @@ MonoBehaviour:
   - {fileID: 1895409708}
   - {fileID: 1617078993}
   targetCake: {fileID: 1654372721}
-  numberOfTraining: 1
-  numberOfCompeting: 2
-  memoryOrbActivated: 1
+  numberOfTraining: 2
+  numberOfCompeting: 5
+  memoryOrbActivated: 0
   memoryOrbManager: {fileID: 313709788}
 --- !u!4 &1725130422
 Transform:

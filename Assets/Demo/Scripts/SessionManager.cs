@@ -37,6 +37,11 @@ public class SessionManager : MonoBehaviour
 
     public MemoryOrbManager memoryOrbManager;
 
+    void Awake()
+    {
+        pathFileName = System.DateTime.Now.ToString("ddMM") + "_logs.txt";
+    }
+    
     void Start()
     {
         firstActionTime = System.DateTime.Now;
@@ -234,7 +239,7 @@ public class SessionManager : MonoBehaviour
 
     void SaveLog(string data)
     {
-        File.AppendAllText(pathFileName, string.Format("{0},{1},{2},{3},{4}\n", System.DateTime.Now.ToString("HH:mm:ss.fff"), sessionId, isTraining, trialId, data));
+        File.AppendAllText(pathFileName, string.Format("{0},{1},{2},{3},{4},{5}\n", System.DateTime.Now.ToString("HH:mm:ss.fff"), memoryOrbActivated, sessionId, isTraining, trialId, data));
     }
 
     public void TranslateStart(GameObject g)

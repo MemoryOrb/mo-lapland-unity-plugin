@@ -106,6 +106,7 @@ public class SessionManager : MonoBehaviour
 
     public void StartCompeting()
     {
+        sessionCakes[sessionId].SetActive(true);
         hasStarted = false;
         SaveLog("START-COMPETING");
         SetTarget();
@@ -135,6 +136,7 @@ public class SessionManager : MonoBehaviour
             textNumber.text = trialId + "/" + numberOfTraining;
             if (trialId >= numberOfTraining)
             {
+                ClearCake();
                 buttonStartCompeting.SetActive(true);
                 buttonValidate.SetActive(false);
             }

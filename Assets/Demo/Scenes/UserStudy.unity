@@ -5461,8 +5461,9 @@ MonoBehaviour:
   targetCake: {fileID: 1654372721}
   numberOfTraining: 2
   numberOfCompeting: 5
-  memoryOrbActivated: 0
   memoryOrbManager: {fileID: 313709788}
+  tracker: {fileID: 1272171085}
+  memoryOrbActivated: 0
 --- !u!4 &1725130422
 Transform:
   m_ObjectHideFlags: 0
